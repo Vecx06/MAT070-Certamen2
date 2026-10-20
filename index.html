@@ -1,0 +1,1593 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
+:root{--f1:#b48cff;--f2:#8fc7ff;--f3:#ff8fd0;--f4:#57d4c2;--f5:#f4b55c;--f6:#ff6b7d}
+.art .ax{stroke:var(--line);stroke-width:2}
+.art .axp{fill:var(--line)}
+.art .tk{font-family:var(--f-math);font-size:21px;fill:var(--dim)}
+.cg{display:inline-grid;grid-template-columns:auto auto;column-gap:.9em;row-gap:.18em;align-items:center;vertical-align:middle;border-left:.07em solid currentColor;border-radius:.45em 0 0 .45em;padding:.12em 0 .12em .5em;font-size:.86em;line-height:1.25;text-align:left}
+.tb{position:absolute;display:grid;border:1.5px solid var(--line2);border-radius:12px;background:rgba(16,16,22,.72);overflow:hidden}
+.tb>div{padding:9px 16px;font-family:var(--f-math);font-size:24px;color:var(--ink);border-top:1px solid #23222b;white-space:nowrap;line-height:1.3}
+.tb>div.th{font-family:var(--f-mono);font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);border-top:0;padding-block:12px}
+.tb i{font-style:italic}.tb sup{font-size:.6em}
+.kd{box-sizing:border-box;padding:16px 20px}
+.ktl{font-family:var(--f-mono);font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:var(--acc);margin-bottom:10px}
+.kx{font-family:var(--f-math);font-size:25px;line-height:1.5;color:var(--ink)}
+.kx .w{font-family:var(--f-body);color:var(--dim);font-size:.85em}
+.kx sub{font-size:.62em}.kx sup{font-size:.62em}
+.eq .unit{font-family:var(--f-body);font-size:.75em;color:var(--dim)}
+</style></head><body>
+<title>MAT070 Certamen 2</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=STIX+Two+Text:ital,wght@0,400;0,600;1,400;1,600&display=swap">
+<style>
+/* Layout: a single "video player" — 1280x720 stage scaled to fit, captions + chapters below. Single deliberate dark look. */
+:root{
+  --bg:#060608; --bg2:#0d0d12; --bg3:#15151c; --grid:rgba(190,185,255,.05);
+  --line:#7d7b88; --line2:#44434d; --ink:#eeedf3; --dim:#9a98a6; --faint:#5e5c68;
+  --acc:#b48cff; --acc-soft:rgba(180,140,255,.12);
+  --peso:#57d4c2; --normal:#eeedf3; --roce:#ff6b7d; --ten:#b48cff; --ela:#f4b55c; --acel:#ff8fd0; --vel:#8fc7ff;
+  --K:#b48cff; --Ug:#57d4c2; --Ue:#f4b55c;
+  --f-disp:'Archivo',ui-sans-serif,system-ui,sans-serif;
+  --f-body:'Figtree',ui-sans-serif,system-ui,sans-serif;
+  --f-math:'STIX Two Text','Cambria Math',Cambria,Georgia,serif;
+  --f-mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:dark;
+}
+html,body{background:var(--bg);color:var(--ink)}
+body{font-family:var(--f-body);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px}
+.wrap{max-width:1240px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+.top{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
+.top .kick{font-family:var(--f-mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--acc)}
+.top h1{font-family:var(--f-disp);font-stretch:112%;font-weight:800;font-size:clamp(22px,3.2vw,32px);letter-spacing:-.01em;margin:4px 0 0;text-wrap:balance}
+.top p{margin:0;color:var(--dim);font-size:14px;font-family:var(--f-mono)}
+
+#player{background:#000;border-radius:14px;overflow:hidden;border:1px solid #1c1b23;position:relative}
+#player:fullscreen{border-radius:0;border:0;display:flex;flex-direction:column;justify-content:center;background:#000}
+#frame{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:var(--bg);margin:0 auto;max-width:100%}
+#stage{position:absolute;left:0;top:0;width:1280px;height:720px;transform-origin:0 0;overflow:hidden;
+  background:
+    radial-gradient(ellipse at 50% 45%,rgba(0,0,0,0) 35%,rgba(0,0,0,.78) 100%),
+    linear-gradient(var(--grid) 2px,transparent 2px) 0 0/80px 80px,
+    linear-gradient(90deg,var(--grid) 2px,transparent 2px) 0 0/80px 80px,
+    var(--bg);
+  animation:drift 90s linear infinite}
+@keyframes drift{to{background-position:0 0,0 80px,80px 0,0 0}}
+.mark{position:absolute;right:26px;bottom:20px;font-family:var(--f-mono);font-size:15px;letter-spacing:.12em;color:var(--faint);z-index:5}
+
+#big{position:absolute;inset:0;margin:auto;width:116px;height:116px;border-radius:50%;border:2px solid var(--acc);background:rgba(10,8,16,.75);color:var(--ink);cursor:pointer;display:grid;place-items:center;z-index:6;box-shadow:0 0 60px rgba(180,140,255,.35);transition:transform .2s}
+#big:hover{transform:scale(1.06)}
+#big svg{width:44px;height:44px;margin-left:6px}
+#resume{position:absolute;left:50%;bottom:18px;translate:-50% 0;z-index:7;display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+#resume button{font:600 14px var(--f-body);color:var(--ink);background:rgba(20,18,28,.92);border:1px solid var(--acc);border-radius:999px;padding:8px 14px;cursor:pointer}
+#resume button+button{border-color:#2d2c36;color:var(--dim)}
+
+#ctl{display:flex;flex-direction:column;gap:6px;padding:10px 12px 10px;background:#000}
+#bar{position:relative;height:20px;cursor:pointer;touch-action:none;outline:none}
+#bar .tr{position:absolute;left:0;right:0;top:8px;height:4px;background:#2a2932;border-radius:2px}
+#bar .fill{position:absolute;left:0;top:8px;height:4px;background:var(--acc);border-radius:2px;width:0}
+#bar .knob{position:absolute;top:4px;width:12px;height:12px;border-radius:50%;background:#fff;translate:-50% 0;left:0;box-shadow:0 0 0 3px rgba(180,140,255,.35)}
+#bar .tick{position:absolute;top:8px;width:3px;height:4px;background:#000;translate:-50% 0}
+#bar:focus-visible .tr{outline:2px solid var(--acc);outline-offset:4px}
+#tip{position:absolute;bottom:22px;translate:-50% 0;background:#16151d;border:1px solid #2d2c36;color:var(--ink);font:500 12px var(--f-body);padding:5px 9px;border-radius:7px;white-space:nowrap;pointer-events:none}
+.row{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+button.ic{background:none;border:0;color:var(--ink);width:40px;height:36px;border-radius:8px;display:grid;place-items:center;cursor:pointer;padding:0}
+button.ic svg{width:22px;height:22px}
+button.ic:hover{background:#1a1a21}
+button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+#time{font-family:var(--f-mono);font-size:13px;color:var(--dim);margin:0 8px;font-variant-numeric:tabular-nums;white-space:nowrap}
+#chName{font-size:13px;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1 1 120px}
+button.tx{font:600 13px var(--f-mono);color:var(--ink);background:#15151b;border:1px solid #2a2930;border-radius:8px;padding:7px 10px;cursor:pointer;white-space:nowrap}
+button.tx[aria-pressed="true"]{border-color:var(--acc);color:var(--acc)}
+button.tx:disabled{opacity:.45;cursor:not-allowed}
+#cap{padding:16px 20px 18px;background:var(--bg2);border-top:1px solid #1c1b23;min-height:118px}
+#cap .ct{font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--acc);margin-bottom:6px}
+#cap .cx{font-size:clamp(16px,2.1vw,20px);line-height:1.55;color:var(--ink);max-width:78ch;text-wrap:pretty}
+#player:fullscreen #cap{min-height:0}
+
+section h3{font-family:var(--f-disp);font-stretch:110%;font-weight:800;font-size:20px;margin:6px 0 10px}
+.chs{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+.chs button{text-align:left;background:var(--bg2);border:1px solid #1d1c25;border-radius:10px;padding:12px 14px;color:var(--ink);cursor:pointer;display:flex;gap:12px;align-items:flex-start;min-width:0}
+.chs button:hover{border-color:#34333e}
+.chs button.on{border-color:var(--acc);background:#120f1b}
+.chs .n{font-family:var(--f-mono);color:var(--faint);font-size:13px;padding-top:2px;font-variant-numeric:tabular-nums}
+.chs .t{font-weight:600;font-size:15px;display:block}
+.chs .s{display:block;color:var(--dim);font-size:13px;margin-top:2px}
+.keys{color:var(--dim);font-size:13px;margin:0}
+kbd,.kb{font-family:var(--f-mono);font-size:.85em;border:1px solid #34333e;border-bottom-width:2px;border-radius:5px;padding:1px 6px;background:#14141a;color:var(--ink)}
+
+[hidden]{display:none!important}
+/* ===== stage content ===== */
+.scene{position:absolute;inset:0;transition:opacity .75s ease,transform 1s cubic-bezier(.2,.8,.2,1),filter .75s ease}
+.scene.pre{opacity:0;transform:scale(1.04) translateY(10px);filter:blur(10px)}
+.scene.out{opacity:0;transform:scale(.97);filter:blur(8px);pointer-events:none}
+.scene svg.art{position:absolute;left:0;top:0;width:1280px;height:720px;overflow:visible}
+.hdr{position:absolute;left:64px;top:42px;right:64px}
+.hdr .tag{font-family:var(--f-mono);font-size:17px;letter-spacing:.14em;text-transform:uppercase;color:var(--acc)}
+.hdr h2{font-family:var(--f-disp);font-stretch:115%;font-weight:800;font-size:42px;margin:6px 0 0;letter-spacing:-.01em;color:var(--ink);line-height:1.1}
+
+.eq{position:absolute;font-family:var(--f-math);font-size:36px;color:var(--ink);white-space:nowrap;line-height:1.25}
+.eq i{font-style:italic}
+.eq .w{font-family:var(--f-body);font-style:normal;font-size:.68em;color:var(--dim);letter-spacing:.01em}
+.eq sub{font-size:.6em;vertical-align:-.3em;line-height:0;font-style:normal}
+.eq sup{font-size:.6em;vertical-align:.62em;line-height:0}
+.eq.s{font-size:30px}.eq.xs{font-size:25px}.eq.l{font-size:50px}.eq.xl{font-size:70px}
+.eq.dim{color:var(--dim)}.eq.acc{color:var(--acc)}
+.eq.box{border:2px solid var(--acc);border-radius:10px;padding:6px 18px;background:rgba(180,140,255,.07);box-shadow:0 0 40px rgba(180,140,255,.16)}
+.c{translate:-50% 0}
+.fr{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 .12em;line-height:1.08;font-size:.9em}
+.fr>span:first-child{border-bottom:.055em solid currentColor;padding:0 .22em .05em}
+.fr>span:last-child{padding:.05em .22em 0}
+.rt{white-space:nowrap}
+.rt>.rad{border-top:.055em solid currentColor;padding:.04em .12em 0;margin-left:.03em;display:inline-block;line-height:1.15}
+.unit{font-style:normal;color:var(--dim)}
+.eq .hl,.eq.hl{color:var(--acc);text-shadow:0 0 24px rgba(180,140,255,.7)}
+.nt{position:absolute;font-family:var(--f-body);font-size:26px;line-height:1.38;color:var(--dim);white-space:normal}
+.nt b{color:var(--ink);font-weight:600}
+.nt.acc{color:var(--acc)}
+.nt i{font-family:var(--f-math)}
+.pill.nc{text-transform:none;letter-spacing:.02em;font-size:18px}
+.pill{position:absolute;font-family:var(--f-mono);font-size:17px;letter-spacing:.1em;text-transform:uppercase;padding:7px 15px;border-radius:999px;border:1.5px solid currentColor;white-space:nowrap}
+.panel{position:absolute;border:1.5px solid var(--line2);border-radius:14px;background:rgba(16,16,22,.72)}
+.node{position:absolute;box-sizing:border-box;border:2px solid var(--line);border-radius:12px;padding:14px 18px;background:rgba(12,12,18,.9);font-family:var(--f-disp);font-stretch:108%;font-weight:700;font-size:27px;color:var(--ink);line-height:1.1}
+.node small{display:block;font-family:var(--f-math);font-weight:400;font-size:22px;color:var(--dim);margin-top:6px}
+.node small i{font-style:italic}.node small sub{font-size:.65em}
+.node.acc{border-color:var(--acc);box-shadow:0 0 30px rgba(180,140,255,.18)}
+.li{position:absolute;display:flex;gap:18px;align-items:baseline;font-size:28px;line-height:1.35;color:var(--dim);font-family:var(--f-body)}
+.li .num{font-family:var(--f-mono);font-size:19px;color:var(--acc);border:1.5px solid var(--acc);border-radius:50%;width:38px;height:38px;display:grid;place-items:center;flex:none;transform:translateY(-3px)}
+.li b{color:var(--ink);font-weight:600}
+.li i{font-family:var(--f-math)}
+.hk{position:absolute;font-family:var(--f-mono);font-size:18px;letter-spacing:.16em;text-transform:uppercase;color:var(--acc)}
+.hero{position:absolute;font-family:var(--f-disp);font-weight:900;font-stretch:112%;font-size:128px;letter-spacing:-.02em;line-height:1;color:var(--ink)}
+.hsub{position:absolute;font-family:var(--f-body);font-size:31px;color:var(--dim)}
+.card .cnum{position:absolute;left:140px;top:150px;font-family:var(--f-disp);font-weight:900;font-stretch:125%;font-size:150px;line-height:1;color:transparent;-webkit-text-stroke:2px var(--line)}
+.card .csub{position:absolute;left:146px;top:338px;font-family:var(--f-mono);font-size:20px;letter-spacing:.16em;text-transform:uppercase;color:var(--acc)}
+.card .cttl{position:absolute;left:140px;top:372px;font-family:var(--f-disp);font-weight:800;font-stretch:116%;font-size:82px;letter-spacing:-.015em;line-height:1.02;color:var(--ink);max-width:1000px}
+
+/* svg drawing */
+.art .ln{stroke:var(--line);stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.art .ln2{stroke:var(--line2);stroke-width:2.2;fill:none}
+.art .dashl{stroke-dasharray:7 9}
+.art .obj{fill:#111117;stroke:#a19faa;stroke-width:3}
+.art .spr{fill:none;stroke:#cfcdd8;stroke-width:3;stroke-linejoin:round;stroke-linecap:round}
+.art .hatch{stroke:var(--line2);stroke-width:2}
+.art text{font-family:var(--f-math);font-size:30px;fill:var(--ink)}
+.art .lab{font-style:italic}
+.art .sm{font-family:var(--f-body);font-size:22px;fill:var(--dim)}
+.art .smacc{font-family:var(--f-body);font-size:22px;fill:var(--acc)}
+.art .arr line{stroke:currentColor;stroke-width:4.5;stroke-linecap:round}
+.art .arr polygon{fill:currentColor}
+.art .arr text{fill:currentColor;font-style:italic;font-size:29px;paint-order:stroke;stroke:#060608;stroke-width:6px}
+.art .dim line{stroke:var(--dim);stroke-width:1.6}
+.art .dim text{fill:var(--dim);font-size:25px;font-style:italic;paint-order:stroke;stroke:#060608;stroke-width:6px}
+.art .ang path{fill:none;stroke:var(--acc);stroke-width:2.2}
+.art .ang text{fill:var(--acc);font-size:26px;font-style:italic}
+.art .dot{fill:var(--ink)}
+
+/* bars (energy diagrams) */
+.bars{position:absolute;width:210px;font-family:var(--f-math)}
+.btl{font-family:var(--f-disp);font-weight:800;font-stretch:110%;font-size:26px;text-align:center;margin-bottom:6px;color:var(--ink)}
+.bcols{height:200px;display:flex;align-items:flex-end;justify-content:center;gap:12px;border-bottom:2px solid var(--line)}
+.bc{width:50px;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center}
+.bf{width:100%;height:calc(var(--h,0) * 100%);border-radius:4px 4px 0 0;transition:height 1s cubic-bezier(.2,.8,.2,1);box-shadow:0 0 26px -6px currentColor}
+.bv{font-size:20px;color:var(--ink);margin-bottom:4px;white-space:nowrap;min-height:24px}
+.bls{display:flex;justify-content:center;gap:12px;margin-top:6px}
+.bls span{width:50px;text-align:center;font-style:italic;font-size:23px;color:var(--dim)}
+.bls sub{font-size:.62em;font-style:normal}
+.be{text-align:center;font-size:21px;margin-top:4px;color:var(--ink);min-height:28px;white-space:nowrap}
+.be i{font-style:italic}.be sub{font-size:.6em;font-style:normal}.be sup{font-size:.6em}
+.bars.sm .bcols{height:130px}.bars.sm .bc{width:42px}.bars.sm .bls span{width:42px}.bars.sm .btl{font-size:22px}
+
+/* beat-driven visibility */
+.scene [data-b]{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .8s cubic-bezier(.2,.8,.2,1),filter .4s ease,color .4s ease}
+.scene [data-b].vis{opacity:1;transform:none}
+.scene .draw[data-b]{opacity:1;transform:none;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.2s cubic-bezier(.6,0,.2,1),opacity .5s ease}
+.scene .draw[data-b].vis{stroke-dashoffset:0}
+.scene .gone,.scene .draw.gone{opacity:0!important}
+.scene g.hl,.scene .node.hl,.scene .pill.hl{filter:drop-shadow(0 0 12px rgba(180,140,255,.8))}
+@media (prefers-reduced-motion:reduce){
+  #stage{animation:none}
+  .scene,.scene [data-b]{transition-duration:.01s!important}
+}
+@media (max-width:560px){
+  #cap{padding:12px 14px 14px}
+  #chName{display:none}
+}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div><div class="kick">MAT070 · Introducción al Cálculo</div><h1>Certamen 2: la clase completa</h1></div>
+    <p id="dur"></p>
+  </header>
+
+  <div id="player">
+    <div id="frame">
+      <div id="stage"></div>
+      <div class="mark">MAT070</div>
+      <button id="big" aria-label="Reproducir la clase"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l12-7.5z"/></svg></button>
+      <div id="resume" hidden><button id="bRes"></button><button id="bRes0">Desde el inicio</button></div>
+    </div>
+    <div id="ctl">
+      <div id="bar" tabindex="0" role="slider" aria-label="Progreso de la clase" aria-valuemin="0"><div class="tr"></div><div class="fill"></div><div class="knob"></div><div id="tip" hidden></div></div>
+      <div class="row">
+        <button class="ic" id="bPrev" aria-label="Paso anterior"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg></button>
+        <button class="ic" id="bPlay" aria-label="Reproducir"><svg viewBox="0 0 24 24" fill="currentColor"><path id="icPlay" d="M7 4.5v15l12-7.5z"/></svg></button>
+        <button class="ic" id="bNext" aria-label="Paso siguiente"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg></button>
+        <span id="time">0:00 / 0:00</span>
+        <span id="chName"></span>
+        <button class="tx" id="bVoice" aria-pressed="false" title="Narración con la voz del navegador">Voz: no</button>
+        <button class="tx" id="bSpeed" title="Velocidad">1×</button>
+        <button class="ic" id="bFs" aria-label="Pantalla completa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+      </div>
+    </div>
+    <div id="cap"><div class="ct" id="capTag"></div><div class="cx" id="capTx"></div></div>
+  </div>
+
+  <section>
+    <h3>Capítulos</h3>
+    <div class="chs" id="chs"></div>
+  </section>
+  <p class="keys">Atajos: <kbd>Espacio</kbd> pausa · <kbd>←</kbd> <kbd>→</kbd> paso anterior o siguiente · <kbd>F</kbd> pantalla completa. Los subtítulos son la narración completa; la voz es opcional.</p>
+</div>
+
+<script>
+/* ================= helpers: math text ================= */
+function fr(a,b){return `<span class="fr"><span>${a}</span><span>${b}</span></span>`}
+function rt(x){return `<span class="rt">√<span class="rad">${x}</span></span>`}
+function M(s){
+  s=s.replace(/ ([<>])(?=[ =])/g,(_,c)=>' '+(c=='<'?'&lt;':'&gt;')).replace(/ {2,}/g,m=>'\u2002'.repeat(Math.max(1,m.length>>1)));
+  const keep=[];const K=h=>{keep.push(h);return '\u0001'+(keep.length-1)+'\u0001'};
+  s=s.replace(/\{\{(.*?)\}\}/g,(_,a)=>K(`<span class="w">${a}</span>`))
+     .replace(/\[\[(.*?)\]\]/g,(_,a)=>K(`<span class="unit">${a}</span>`))
+     .replace(/_\{([^}]*)\}/g,(_,a)=>K(`<sub>${a}</sub>`))
+     .replace(/_([A-Za-z0-9áéíóú]+)/g,(_,a)=>K(`<sub>${a}</sub>`))
+     .replace(/\^\{([^}]*)\}/g,'<sup>$1</sup>').replace(/\^([0-9]+)/g,'<sup>$1</sup>');
+  s=s.split(/(<[^>]+>)/).map(p=>p[0]==='<'?p:p.replace(/(^|[^A-Za-zÀ-ÿ\u0001])([A-Za-zμωθαδφ])(?![A-Za-zÀ-ÿ])/g,'$1<i>$2</i>')).join('');
+  return s.replace(/\u0001(\d+)\u0001/g,(_,i)=>keep[+i]);
+}
+/* ================= helpers: beat attrs ================= */
+function ab(b){if(b==null||b===false)return '';if(typeof b!=='object')return ` data-b="${b}"`;let s='';if(b.b!=null)s+=` data-b="${b.b}"`;if(b.x!=null)s+=` data-x="${b.x}"`;if(b.d!=null)s+=` data-d="${b.d}"`;if(b.hl!=null)s+=` data-hl="${b.hl}"`;return s}
+const hasB=b=>b!=null&&b!==false&&(typeof b!=='object'||b.b!=null);
+/* ================= helpers: html ================= */
+function Q(x,y,s,b,cls=''){return `<div class="eq ${cls}" style="left:${x}px;top:${y}px"${ab(b)}>${M(s)}</div>`}
+function N(x,y,w,s,b,cls=''){return `<div class="nt ${cls}" style="left:${x}px;top:${y}px;width:${w}px"${ab(b)}>${s}</div>`}
+function P(x,y,s,col,b,c=''){return `<div class="pill ${c}" style="left:${x}px;top:${y}px;color:var(--${col})"${ab(b)}>${s}</div>`}
+function LI(x,y,n,s,b,w=1080){return `<div class="li" style="left:${x}px;top:${y}px;width:${w}px"${ab(b)}><span class="num">${n}</span><span>${s}</span></div>`}
+function node(x,y,w,t,s,b,cls=''){return `<div class="node ${cls}" style="left:${x}px;top:${y}px;width:${w}px"${ab(b)}>${t}<small>${M(s)}</small></div>`}
+function svg(s){return `<svg class="art" viewBox="0 0 1280 720">${s}</svg>`}
+function bars(id,x,y,t,b,cls=''){return `<div class="bars ${cls}" id="${id}" style="left:${x}px;top:${y}px"${ab(b)}><div class="btl">${t}</div><div class="bcols">${['K','Ug','Ue'].map(k=>`<div class="bc"><span class="bv"></span><div class="bf" style="background:var(--${k});color:var(--${k})"></div></div>`).join('')}</div><div class="bls"><span>K</span><span>U<sub>g</sub></span><span>U<sub>e</sub></span></div><div class="be"></div></div>`}
+function setB(r,id,v,lab,e){const el=r.querySelector('#'+id);if(!el)return;el.querySelectorAll('.bc').forEach((c,i)=>{c.style.setProperty('--h',v[i]||0);c.querySelector('.bv').textContent=lab&&lab[i]!=null?lab[i]:''});el.querySelector('.be').innerHTML=e?M(e):''}
+/* ================= helpers: svg ================= */
+const sb=s=>`<tspan font-size="19" dy="7" font-style="normal">${s}</tspan>`;
+function ln(x1,y1,x2,y2,b,c='ln',st=''){return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" class="${c}${hasB(b)&&!/dashl/.test(c)?' draw':''}" pathLength="1"${st?` style="${st}"`:''}${ab(b)}/>`}
+function pth(d,b,c='ln',st=''){return `<path d="${d}" class="${c}${hasB(b)&&!/dashl/.test(c)?' draw':''}" pathLength="1"${st?` style="${st}"`:''}${ab(b)}/>`}
+function cir(cx,cy,r,b,c='ln'){return `<circle cx="${cx}" cy="${cy}" r="${r}" class="${c}${hasB(b)&&!/dashl/.test(c)?' draw':''}" pathLength="1"${ab(b)}/>`}
+function dot(x,y,b,r=6){return `<circle cx="${x}" cy="${y}" r="${r}" class="dot"${ab(b)}/>`}
+function tx(x,y,s,b,cls='',anc='middle'){return `<text x="${x}" y="${y}" text-anchor="${anc}" dominant-baseline="central" class="${cls}"${ab(b)}>${s}</text>`}
+function ageo(x1,y1,x2,y2){const a=Math.atan2(y2-y1,x2-x1),h=17,w=.42;return{a,ex:x2-Math.cos(a)*h*.6,ey:y2-Math.sin(a)*h*.6,pts:`${x2},${y2} ${x2-h*Math.cos(a-w)},${y2-h*Math.sin(a-w)} ${x2-h*Math.cos(a+w)},${y2-h*Math.sin(a+w)}`,lx:x2+Math.cos(a)*26,ly:y2+Math.sin(a)*26}}
+function arr(x1,y1,x2,y2,col,lab,b,lp,st=''){const g=ageo(x1,y1,x2,y2);const [lx,ly]=lp||[g.lx,g.ly];return `<g class="arr" style="color:var(--${col});${st}"${ab(b)}><line x1="${x1}" y1="${y1}" x2="${g.ex}" y2="${g.ey}"/><polygon points="${g.pts}"/>${lab?`<text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="central">${lab}</text>`:''}</g>`}
+function darr(id,col,lab,b){return `<g class="arr" id="${id}" style="color:var(--${col})"${ab(b)}><line/><polygon/>${lab?`<text text-anchor="middle" dominant-baseline="central">${lab}</text>`:''}</g>`}
+function setArr(r,id,x1,y1,x2,y2,lp){const e=r.querySelector('#'+id);if(!e)return;const g=ageo(x1,y1,x2,y2);const l=e.querySelector('line');l.setAttribute('x1',x1);l.setAttribute('y1',y1);l.setAttribute('x2',g.ex);l.setAttribute('y2',g.ey);e.querySelector('polygon').setAttribute('points',g.pts);const t=e.querySelector('text');if(t){const p=lp||[g.lx,g.ly];t.setAttribute('x',p[0]);t.setAttribute('y',p[1])}}
+function blk(x,y,w,h,lab,b,id){return `<g${id?` id="${id}"`:''}${ab(b)}><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="5" class="obj"/>${lab?tx(x+w/2,y+h/2,lab,null,'lab'):''}</g>`}
+function ball(x,y,r,lab,b,id){return `<g${id?` id="${id}"`:''}${ab(b)}><circle cx="${x}" cy="${y}" r="${r}" class="obj"/>${lab?tx(x,y,lab,null,'lab'):''}</g>`}
+function gnd(x1,x2,y,b,red){let h='';for(let x=x1+12;x<=x2;x+=22)h+=`<line x1="${x}" y1="${y+2}" x2="${x-12}" y2="${y+15}" class="hatch"/>`;return `<g${ab(b)}><line x1="${x1}" y1="${y}" x2="${x2}" y2="${y}" class="ln"${red?' style="stroke:var(--roce)"':''}/>${h}</g>`}
+function wall(x,y1,y2,b,side=-1){let h='';for(let y=y1+10;y<=y2;y+=20)h+=`<line x1="${x}" y1="${y}" x2="${x+side*13}" y2="${y+10}" class="hatch"/>`;return `<g${ab(b)}><line x1="${x}" y1="${y1}" x2="${x}" y2="${y2}" class="ln"/>${h}</g>`}
+function ceil(x1,x2,y,b){let h='';for(let x=x1+12;x<=x2;x+=22)h+=`<line x1="${x}" y1="${y-2}" x2="${x-12}" y2="${y-15}" class="hatch"/>`;return `<g${ab(b)}><line x1="${x1}" y1="${y}" x2="${x2}" y2="${y}" class="ln"/>${h}</g>`}
+function springPts(x1,y1,x2,y2,n=9,w=15){const L=Math.hypot(x2-x1,y2-y1)||1,ux=(x2-x1)/L,uy=(y2-y1)/L,nx=-uy,ny=ux,lead=Math.min(16,L*.12);const p=[[x1,y1],[x1+ux*lead,y1+uy*lead]];const m=2*n;for(let i=0;i<m;i++){const s=lead+(L-2*lead)*(i+.5)/m,sd=(i%2?-1:1)*w;p.push([x1+ux*s+nx*sd,y1+uy*s+ny*sd])}p.push([x2-ux*lead,y2-uy*lead],[x2,y2]);return p.map(q=>q[0].toFixed(1)+','+q[1].toFixed(1)).join(' ')}
+function spr(id,x1,y1,x2,y2,b,n,w){return `<polyline${id?` id="${id}"`:''} class="spr" points="${springPts(x1,y1,x2,y2,n,w)}"${ab(b)}/>`}
+function setSpr(r,id,x1,y1,x2,y2,n,w){const e=r.querySelector('#'+id);if(e)e.setAttribute('points',springPts(x1,y1,x2,y2,n,w))}
+function dim(x1,y1,x2,y2,lab,b,lx,ly){const a=Math.atan2(y2-y1,x2-x1),nx=-Math.sin(a)*9,ny=Math.cos(a)*9;return `<g class="dim"${ab(b)}><line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/><line x1="${x1-nx}" y1="${y1-ny}" x2="${x1+nx}" y2="${y1+ny}"/><line x1="${x2-nx}" y1="${y2-ny}" x2="${x2+nx}" y2="${y2+ny}"/>${lab?`<text x="${lx??(x1+x2)/2}" y="${ly??(y1+y2)/2}" text-anchor="middle" dominant-baseline="central">${lab}</text>`:''}</g>`}
+function arc(cx,cy,r,a1,a2,lab,b,lr){lr=lr??r+24;const R=Math.PI/180,P=a=>[cx+r*Math.cos(a*R),cy-r*Math.sin(a*R)];const [x1,y1]=P(a1),[x2,y2]=P(a2);const lg=Math.abs(a2-a1)>180?1:0,sw=a2>a1?0:1,am=(a1+a2)/2*R;return `<g class="ang"${ab(b)}><path d="M${x1.toFixed(1)} ${y1.toFixed(1)} A${r} ${r} 0 ${lg} ${sw} ${x2.toFixed(1)} ${y2.toFixed(1)}"/>${lab?`<text x="${(cx+lr*Math.cos(am)).toFixed(1)}" y="${(cy-lr*Math.sin(am)).toFixed(1)}" text-anchor="middle" dominant-baseline="central">${lab}</text>`:''}</g>`}
+/* ================= helpers: motion ================= */
+function pick(j,o){let v;for(const k of Object.keys(o).map(Number).sort((a,b)=>a-b))if(k<=j)v=o[k];return v}
+function tween(r,key,dur,fn){r._tw=r._tw||{};const id={};r._tw[key]=id;const t0=performance.now();const e=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;function st(now){if(r._tw[key]!==id)return;const p=Math.min(1,(now-t0)/(dur*1000));fn(e(p));if(p<1)requestAnimationFrame(st)}requestAnimationFrame(st)}
+function animv(r,key,to,dur,fn,instant){r._v=r._v||{};const from=r._v[key];r._v[key]=to;if(instant||from==null){fn(to);return}const isA=Array.isArray(to);tween(r,key,dur,p=>fn(isA?to.map((v,i)=>from[i]+(v-from[i])*p):from+(to-from)*p))}
+function setT(r,id,x,y){const e=r.querySelector('#'+id);if(e)e.setAttribute('transform',`translate(${x},${y})`)}
+
+/* ================= content registry ================= */
+const CHS=[],SC=[];let _ch=null;
+function CH(title,sub,narr){_ch={title,sub,scenes:[],i:CHS.length};CHS.push(_ch);if(narr)S({card:true,title,beats:[narr]})}
+function S(o){o.ch=_ch;o.i=SC.length;SC.push(o);_ch.scenes.push(o)}
+</script>
+<script>
+/* ================= helpers MAT070 ================= */
+function G(ox,oy,sx,sy){return{ox,oy,sx,sy,X:x=>ox+x*sx,Y:y=>oy-y*sy}}
+function axes(g,x0,x1,y0,y1,b,o={}){
+  const X0=g.X(x0),X1=g.X(x1),Y0=g.Y(y0),Y1=g.Y(y1);let s='';
+  s+=`<line x1="${X0}" y1="${g.oy}" x2="${X1}" y2="${g.oy}" class="ax"/><polygon class="axp" points="${X1+11},${g.oy} ${X1-1},${g.oy-6} ${X1-1},${g.oy+6}"/>`;
+  s+=`<line x1="${g.ox}" y1="${Y0}" x2="${g.ox}" y2="${Y1}" class="ax"/><polygon class="axp" points="${g.ox},${Y1-11} ${g.ox-6},${Y1+1} ${g.ox+6},${Y1+1}"/>`;
+  if(o.xl!==false)s+=`<text x="${X1+14}" y="${g.oy+22}" class="tk lab" text-anchor="start" dominant-baseline="central">${o.xl||'x'}</text>`;
+  if(o.yl!==false)s+=`<text x="${g.ox+14}" y="${Y1-4}" class="tk lab" text-anchor="start" dominant-baseline="central">${o.yl||'y'}</text>`;
+  (o.xt||[]).forEach(t=>{const[v,l]=Array.isArray(t)?t:[t,String(t).replace('-','−')];const X=g.X(v);s+=`<line x1="${X}" y1="${g.oy-5}" x2="${X}" y2="${g.oy+5}" class="ax"/><text x="${X}" y="${g.oy+(o.xtd||24)}" class="tk" text-anchor="middle" dominant-baseline="central">${l}</text>`});
+  (o.yt||[]).forEach(t=>{const[v,l]=Array.isArray(t)?t:[t,String(t).replace('-','−')];const Y=g.Y(v);s+=`<line x1="${g.ox-5}" y1="${Y}" x2="${g.ox+5}" y2="${Y}" class="ax"/><text x="${g.ox-11}" y="${Y}" class="tk" text-anchor="end" dominant-baseline="central">${l}</text>`});
+  return `<g${ab(b)}>${s}</g>`}
+function fd(g,f,a,b,n=260,lim=1e9){let d='',pen=false;for(let i=0;i<=n;i++){const x=a+(b-a)*i/n;let y;try{y=f(x)}catch(e){y=NaN}const ok=isFinite(y)&&Math.abs(y)<=lim;if(ok){d+=(pen?'L':'M')+g.X(x).toFixed(1)+' '+g.Y(y).toFixed(1);pen=true}else pen=false}return d}
+function cv(g,f,a,b,col,bb,o={}){if(o.dash)return `<path d="${fd(g,f,a,b,o.n||260,o.lim??1e9)}" class="ln dashl" style="stroke:var(--${col});stroke-width:${o.w||4}"${ab(bb)}/>`;return pth(fd(g,f,a,b,o.n||260,o.lim??1e9),bb,'ln'+(o.dash?' dashl':''),`stroke:var(--${col});stroke-width:${o.w||4}${o.op?';opacity:'+o.op:''}`)}
+function dl(x1,y1,x2,y2,b,col='line'){return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" class="ln2 dashl" style="stroke:var(--${col})"${ab(b)}/>`}
+function fdot(x,y,col,b,r=7){return `<circle cx="${x}" cy="${y}" r="${r}" style="fill:var(--${col})"${ab(b)}/>`}
+function tc(x,y,s,col,b,anc='middle',fs=26){return `<text x="${x}" y="${y}" text-anchor="${anc}" dominant-baseline="central" class="lab" style="fill:var(--${col});font-size:${fs}px"${ab(b)}>${s}</text>`}
+const sup=s=>`<tspan dy="-12" font-size="19">${s}</tspan><tspan dy="12"></tspan>`;
+function cs(rows){return `<span class="cg">${rows.map(([e,c])=>`<span>${e}</span><span><span class="w">si</span> ${c}</span>`).join('')}</span>`}
+function TB(x,y,cols,rows){return `<div class="tb" style="left:${x}px;top:${y}px;grid-template-columns:${cols.map(c=>c+'px').join(' ')}">${rows.map(r=>r.c.map(c=>`<div class="${r.h?'th':''}"${ab(r.b)}>${r.h?c:M(c)}</div>`).join('')).join('')}</div>`}
+function CARD(x,y,w,h,t,s,b){return `<div class="panel kd" style="left:${x}px;top:${y}px;width:${w}px;height:${h}px"${ab(b)}><div class="ktl">${t}</div><div class="kx">${M(s)}</div></div>`}
+const PI=Math.PI;
+
+/* ===================== INTRO ===================== */
+CH('Introducción','Cómo usar esta clase',null);
+
+S({noHdr:true,title:'Certamen 2',
+html:`
+<div class="hk" style="left:90px;top:168px" data-b="0">MAT070 · USM · 2do semestre 2026</div>
+<div class="hero" style="left:84px;top:204px" data-b="0" data-d=".15">Certamen 2</div>
+<div class="hsub" style="left:90px;top:372px" data-b="0" data-d=".3">Funciones · Exp y log · Trigonometría</div>
+${N(90,462,620,'Clases <b>12 a 18</b>, desde cero y paso a paso.',1)}
+${N(90,566,660,'<span class="kb">Espacio</span> pausa &nbsp;·&nbsp; <span class="kb">←</span> <span class="kb">→</span> paso anterior o siguiente &nbsp;·&nbsp; velocidad abajo a la derecha',2)}
+${svg(`
+  ${cir(1060,250,100,0,'ln2')}
+  <line x1="945" y1="250" x2="1175" y2="250" class="ln2"/><line x1="1060" y1="135" x2="1060" y2="365" class="ln2"/>
+  <line id="i_r" class="ln" style="stroke:var(--acc);stroke-width:3"/>
+  <g data-b="0"><line x1="800" y1="560" x2="1210" y2="560" class="ln2"/>${pth(fd(G(800,560,400/(2*PI),75),Math.sin,0,2*PI),null,'ln','stroke:var(--f2);stroke-width:3')}</g>
+  <circle id="i_p" r="9" style="fill:var(--acc)"/><circle id="i_q" r="9" style="fill:var(--f2)"/>
+`)}`,
+beats:[
+`Hola. Esta es una clase completa para el certamen 2 de MAT070, Introducción al Cálculo. Vamos a ver todo desde cero, paso a paso, sin saltarnos nada, como si fuera la primera vez que ves la materia.`,
+`El certamen es el viernes 23 de octubre y entra hasta la clase 18. Lo nuevo son las clases 12 a 18: propiedades de funciones, composición, función inversa, exponencial y logaritmo, modelos exponenciales, y trigonometría. Lo del certamen 1, como dominio, recorrido e inecuaciones, se sigue usando adentro de casi todo.`,
+`Un consejo antes de partir: pausa con la barra espaciadora cuando quieras, retrocede con la flecha izquierda, y cambia la velocidad abajo a la derecha. Cuando aparezca un ejercicio, pausa e intenta hacerlo tú primero. Y si quieres, puedes activar la voz.`],
+loop(st,r){const a=(st*.8)%(2*PI),x=1060+100*Math.cos(a),y=250-100*Math.sin(a);const l=r.querySelector('#i_r');if(l){l.setAttribute('x1',1060);l.setAttribute('y1',250);l.setAttribute('x2',x);l.setAttribute('y2',y)}
+  setT(r,'i_p',x,y);setT(r,'i_q',800+a*400/(2*PI),560-75*Math.sin(a))}
+});
+
+S({title:'El mapa del certamen',
+html:`
+${node(90,175,320,'Propiedades','{{par · impar · crece}}',0)}
+${node(90,315,320,'Composición','f ∘ g',{b:0,d:.2})}
+${node(90,455,320,'Inversa','f^{−1}',{b:0,d:.4},'acc')}
+${P(520,250,'Exp y log','f2',1)}
+${node(520,315,320,'Exponencial y log','a^{x} · log_a x',1)}
+${node(520,455,320,'Modelos','P_0 · 2^{t/D}',{b:1,d:.3})}
+${P(930,250,'Trigonometría','f3',2)}
+${node(930,315,300,'Trigonométricas','A sen(B<i>x</i> + C)',2)}
+${node(930,455,300,'Trig. inversas','{{Arcsen · ecuaciones}}',{b:2,d:.3})}
+${svg(`${arr(250,272,250,308,'line','',0)}${arr(250,412,250,448,'line','',{b:0,d:.3})}
+${arr(412,500,514,370,'line','',1)}${arr(680,412,680,448,'line','',{b:1,d:.3})}${arr(1080,412,1080,448,'line','',{b:2,d:.3})}
+${pth('M250 556 L250 590 L1080 590 L1080 556',3,'ln','stroke:var(--acc);stroke-width:2.5')}`)}
+${P(330,610,'Inversa = deshacer: log deshace aˣ, Arcsen deshace sen','acc',3,'nc')}`,
+beats:[
+`Primero, el mapa. La materia del certamen tiene tres bloques. El primero, a la izquierda, son herramientas generales para estudiar funciones: propiedades como paridad y crecimiento, la composición, y la función inversa.`,
+`El segundo bloque son dos funciones nuevas muy importantes: la exponencial y el logaritmo, y cómo se usan para modelar cosas reales, como bacterias que se multiplican o un café que se enfría.`,
+`El tercer bloque es trigonometría: las funciones seno, coseno y tangente, las funciones sinusoidales, sus inversas, y cómo resolver ecuaciones trigonométricas.`,
+`Fíjate en la idea que une todo: la función inversa. El logaritmo es la inversa de la exponencial, y el arcoseno es la inversa del seno. Por eso la clase 14 es la llave del certamen: si entiendes bien la inversa, la mitad de lo que viene se ordena solo.`]
+});
+
+/* ===================== PARIDAD ===================== */
+CH('Funciones pares e impares','Clase 12','Capítulo uno: funciones pares e impares. Es una idea de simetría, y la vamos a mirar primero con dibujos y después con álgebra.');
+
+{const g=G(330,560,55,40);
+S({title:'Par: el eje y es un espejo',
+html:`${svg(`
+${axes(g,-3.4,3.4,-0.6,9.4,1,{xt:[[-2,'−2'],[2,'2']],yt:[[4,'4']]})}
+${cv(g,x=>x*x,-3.05,3.05,'f1',1)}
+<g data-b="3"><line x1="330" y1="200" x2="330" y2="585" style="stroke:var(--acc);stroke-width:6;opacity:.45"/></g>${tc(345,240,'espejo','acc',3,'start',22)}
+${dl(220,400,440,400,2,'f5')}${dl(440,400,440,560,2)}${dl(220,400,220,560,2)}
+${fdot(440,400,'f5',2)}${fdot(220,400,'f5',2)}
+${tc(452,382,'(2, 4)','f5',2,'start')}${tc(208,382,'(−2, 4)','f5',2,'end')}`)}
+${Q(690,180,'f(−x) = f(x)',0,'l box')}
+${N(690,268,520,'para <b>todo</b> <i>x</i> del dominio.',0)}
+${N(690,350,520,'Gráfico simétrico respecto del <b>eje <i>y</i></b>.',3)}
+${N(690,455,520,'<b>Otras funciones pares:</b>',4)}
+${Q(690,500,'|x|,     x^4,     cos x',4,'s')}`,
+beats:[
+`Empecemos con las funciones pares. Una función f es par si cuando cambias x por menos x, el resultado es el mismo. Se escribe así: f de menos x igual a f de x. Y ojo: tiene que cumplirse para todos los x del dominio, no solo para uno.`,
+`El ejemplo más simple es f de x igual a x al cuadrado. Su gráfico es esta parábola.`,
+`Mira qué pasa en x igual a 2: f de 2 es 2 al cuadrado, o sea 4. Y en x igual a menos 2: menos 2 al cuadrado también es 4, porque menos por menos da más. Los dos puntos están a la misma altura.`,
+`Eso pasa con todos los pares de puntos. Por eso el gráfico de una función par es simétrico respecto del eje y: si doblas la hoja por el eje y, la mitad izquierda calza exactamente con la derecha. El eje y funciona como un espejo.`,
+`Otras funciones pares que vas a ver mucho: el valor absoluto de x, x a la cuarta, y el coseno de x.`]
+});}
+
+{const g=G(330,430,60,26);
+S({title:'Impar: simetría respecto del origen',
+html:`${svg(`
+${axes(g,-2.4,2.4,-9.3,9.3,1,{xt:[[-2,'−2'],[2,'2']],yt:[[8,'8'],[-8,'−8']]})}
+${cv(g,x=>x*x*x,-2.15,2.15,'f1',1,{lim:9.2})}
+<g id="rot" data-b="3">${pth(fd(g,x=>x*x*x,0,2.15,120,9.2),null,'ln dashl','stroke:var(--f2);stroke-width:3.5')}</g>
+${dl(210,638,450,222,3,'f5')}
+${fdot(450,222,'f5',2)}${fdot(210,638,'f5',2)}${fdot(330,430,'acc',3,6)}
+${tc(465,222,'(2, 8)','f5',2,'start')}${tc(195,638,'(−2, −8)','f5',2,'end')}`)}
+${Q(700,180,'f(−x) = −f(x)',0,'l box')}
+${N(700,268,520,'para <b>todo</b> <i>x</i> del dominio.',0)}
+${N(700,345,520,'Gráfico simétrico respecto del <b>origen</b>: media vuelta (180°) y queda igual.',3)}
+${N(700,455,520,'<b>Otras impares:</b>',4)}
+${Q(700,500,`x|x|,     ${fr('1','x')},     sen x`,4,'s')}
+${N(700,590,520,'El dominio debe ser <b>simétrico</b>: si <i>x</i> está, −<i>x</i> también.',4)}`,
+beats:[
+`Ahora las impares. Una función f es impar si al cambiar x por menos x, el resultado cambia de signo. Se escribe: f de menos x igual a menos f de x. De nuevo, para todo x del dominio.`,
+`El ejemplo típico es x al cubo.`,
+`En x igual a 2: 2 al cubo es 8. En x igual a menos 2: menos 2 al cubo es menos 8, porque menos por menos por menos da menos. Misma distancia al eje, pero al otro lado: el valor cambió de signo.`,
+`Si unes esos dos puntos, la recta pasa justo por el origen, y el origen queda en la mitad. Eso significa que el gráfico de una función impar es simétrico respecto del origen: si giras la mitad derecha media vuelta, 180 grados alrededor del origen, cae exactamente sobre la mitad izquierda. Míralo.`,
+`Otras impares: x por valor absoluto de x, uno partido por x, y el seno de x. Y un detalle: para ser par o impar, el dominio tiene que ser simétrico. Si x está en el dominio, menos x también tiene que estar. Si no, la función no es ni par ni impar.`],
+on(j,r,m){animv(r,'rot',j>=3?180:0,2.6,v=>{const e=r.querySelector('#rot');if(e)e.setAttribute('transform',`rotate(${v} 330 430)`)},m||j<3)}
+});}
+
+S({title:'Cómo decidir la paridad con álgebra',
+html:`
+${LI(90,185,1,'<b>Dominio simétrico:</b> si <i>x</i> está, −<i>x</i> también.',0)}
+${LI(90,262,2,'<b>Calcula <i>f</i>(−<i>x</i>):</b> cambia cada <i>x</i> por (−<i>x</i>), siempre <b>con paréntesis</b>.',1)}
+${LI(90,339,3,'<b>Simplifica:</b> (−<i>x</i>)² = <i>x</i>²,&nbsp; (−<i>x</i>)³ = −<i>x</i>³,&nbsp; |−<i>x</i>| = |<i>x</i>|.',2)}
+${LI(90,416,4,'<b>Compara:</b> quedó <i>f</i>(<i>x</i>) → <b>par</b>. Quedó −<i>f</i>(<i>x</i>) → <b>impar</b>.',3)}
+${LI(90,493,5,'<b>Ninguna:</b> basta un contraejemplo con números, como <i>f</i>(1) ≠ <i>f</i>(−1).',4)}
+${P(90,600,'Potencia par se come el signo · potencia impar lo deja','acc',2,'nc')}`,
+beats:[
+`Ahora, cómo se decide con álgebra. Paso uno: revisa que el dominio sea simétrico. Si x está en el dominio, menos x también tiene que estar.`,
+`Paso dos: calcula f de menos x. Esto significa: toma la fórmula y donde dice x, escribe menos x, siempre entre paréntesis. Los paréntesis importan: menos x, todo al cuadrado, no es lo mismo que menos, x al cuadrado.`,
+`Paso tres: simplifica. Las tres reglas que más vas a usar: menos x al cuadrado es x al cuadrado; menos x al cubo es menos x al cubo; y el valor absoluto de menos x es el valor absoluto de x. En general: una potencia par se come el signo, una potencia impar lo deja.`,
+`Paso cuatro: compara con la f original. Si te quedó exactamente f de x, es par. Si te quedó menos f de x, es impar.`,
+`Paso cinco: si no te quedó ninguna de las dos, para demostrar que no es par, ni impar, basta un contraejemplo con números. Por ejemplo, mostrar que f de 1 es distinto de f de menos 1.`]
+});
+
+S({title:'Tres ejemplos',
+html:`
+${Q(90,180,'f(x) = x|x|',0,'s')}
+${Q(90,232,'f(−x) = (−x)|−x| = −x|x| = −f(x)',0,'s')}
+${P(1000,238,'impar','f2',0)}
+${Q(90,325,'f(x) = x^2 − x^3',1,'s')}
+${Q(90,377,'f(−x) = (−x)^2 − (−x)^3 = x^2 + x^3',1,'s')}
+${Q(90,432,'≠ f(x)  {{y}}  ≠ −f(x):     f(1) = 0,   f(−1) = 2',2,'s')}
+${P(1000,438,'ni par ni impar','f6',2)}
+${Q(90,525,`f(x) = ${rt('|x| + 1')}`,3,'s')}
+${Q(90,582,`f(−x) = ${rt('|−x| + 1')} = ${rt('|x| + 1')} = f(x)`,3,'s')}
+${P(1000,588,'par','f4',3)}
+${svg(`${ln(90,300,1190,300,1,'ln2')}${ln(90,500,1190,500,3,'ln2')}`)}`,
+beats:[
+`Ejemplo uno: f de x igual a x por valor absoluto de x. Calculamos f de menos x: es menos x, por el valor absoluto de menos x. El valor absoluto de menos x es el valor absoluto de x, así que queda menos x por valor absoluto de x. Eso es exactamente menos f de x. Es impar.`,
+`Ejemplo dos: f de x igual a x al cuadrado menos x al cubo. f de menos x es: menos x al cuadrado, que da x al cuadrado, menos, menos x al cubo, que da más x al cubo. Queda x al cuadrado más x al cubo.`,
+`Eso no es f de x, porque un signo cambió, y tampoco es menos f de x, porque el otro no cambió. Lo confirmamos con números: f de 1 es 1 menos 1, cero. f de menos 1 es 1 más 1, dos. Como dos no es igual a cero, ni a menos cero, no es ni par ni impar.`,
+`Ejemplo tres, del taller 6: f de x igual a raíz de, valor absoluto de x más 1. f de menos x es raíz de, valor absoluto de menos x más 1. Y como el valor absoluto se come el signo, queda raíz de valor absoluto de x más 1, que es f de x. Es par.`]
+});
+
+S({title:'Demostración: Taller 6, ejercicio 1',
+html:`
+${N(90,170,1100,'<b>Taller 6.</b> Sea <i>f</i> : ℝ → ℝ <b>cualquiera</b>. Demuestre que <i>g</i>(<i>x</i>) = <i>x</i>³ <i>f</i>(<i>x</i>² − 1) es impar.',0)}
+${Q(90,240,'g(−x) = (−x)^3 · f((−x)^2 − 1)',1,'s')}
+${Q(176,305,'= −x^3 · f(x^2 − 1)',2,'s')}
+${Q(176,370,'= −g(x)',3,'s box')}
+${P(420,376,'No hace falta saber quién es f','acc',3,'nc')}
+${N(90,465,1100,'<b>b)</b> Si <i>f</i> es <b>impar</b>, entonces <i>g</i>(<i>x</i>) = <i>x</i>|<i>x</i>| <i>f</i>(<i>x</i>) es par:',4)}
+${Q(90,522,'g(−x) = (−x)|−x| f(−x) = (−x)|x| (−f(x)) = x|x| f(x) = g(x)',4,'s')}
+${N(90,600,1000,'Usamos <i>f</i>(−<i>x</i>) = −<i>f</i>(<i>x</i>): los dos signos menos se cancelan.',4)}`,
+beats:[
+`Ahora un ejercicio tipo certamen, del taller 6. Sea f una función cualquiera de reales en reales. Demuestre que g de x igual a x al cubo por f de, x al cuadrado menos 1, es impar. Lo raro es que no sabemos quién es f. Y no lo necesitamos.`,
+`Seguimos el método. Calculamos g de menos x: donde dice x, ponemos menos x, con paréntesis. Queda: menos x al cubo, por f de, menos x al cuadrado menos 1.`,
+`Simplificamos. Menos x al cubo es menos x al cubo. Y adentro de f, menos x al cuadrado es x al cuadrado, así que lo de adentro queda x al cuadrado menos 1: igual que antes. Entonces g de menos x es menos x al cubo por f de, x al cuadrado menos 1.`,
+`Eso es exactamente menos g de x. Y como vale para todo x, g es impar. El truco: lo que está adentro de f no cambió al poner menos x, así que no importa quién sea f.`,
+`Parte b: si f es impar, demuestre que g de x igual a x por valor absoluto de x por f de x, es par. g de menos x es menos x, por valor absoluto de menos x, por f de menos x. Ahora sí usamos que f es impar: f de menos x es menos f de x. Queda menos x, por valor absoluto de x, por menos f de x. Los dos signos menos se cancelan, y queda x por valor absoluto de x por f de x: g de x. Es par.`]
+});
+
+/* ===================== CRECIMIENTO Y ÁLGEBRA ===================== */
+CH('Crecimiento y álgebra de funciones','Clase 12','Capítulo dos: cuándo una función sube y cuándo baja, y cómo se suman, multiplican y dividen funciones.');
+
+{const g=G(300,600,70,60);
+S({title:'Creciente y decreciente',
+html:`${svg(`
+${axes(g,-2.8,2.8,-0.3,6.6,0)}
+${cv(g,x=>x*x,-2.55,0,'f6',2)}${cv(g,x=>x*x,0,2.55,'f4',2)}
+${tc(190,330,'decrece','f6',2,'middle',22)}${tc(400,300,'crece','f4',2,'middle',22)}
+${dl(356,562,356,600,3)}${dl(426,406,426,600,3)}
+${fdot(356,562,'f5',3)}${fdot(426,406,'f5',3)}
+${tc(356,628,'x₁','f5',3)}${tc(426,628,'x₂','f5',3)}
+${tc(372,582,'f(x₁)','f5',3,'start',22)}${tc(442,420,'f(x₂)','f5',3,'start',22)}`)}
+${P(640,180,'Estrictamente creciente','f4',0,'nc')}
+${Q(640,228,'x_1 < x_2  ⇒  f(x_1) < f(x_2)',0,'s')}
+${P(640,318,'Estrictamente decreciente','f6',1,'nc')}
+${Q(640,366,'x_1 < x_2  ⇒  f(x_1) > f(x_2)',1,'s')}
+${N(640,465,560,'<i>x</i>²: decrece en ]−∞, 0] y crece en [0, +∞[.',2)}
+${N(640,550,560,'Con ≤ o ≥ se dice solo <b>creciente</b> o <b>decreciente</b>. Cualquiera de las dos: <b>monótona</b>.',4)}`,
+beats:[
+`Ahora, crecimiento. Una función es estrictamente creciente si cuando avanzas hacia la derecha, sube. Más preciso: si x uno es menor que x dos, entonces f de x uno es menor que f de x dos. El orden se mantiene.`,
+`Y es estrictamente decreciente si cuando avanzas hacia la derecha, baja: si x uno es menor que x dos, entonces f de x uno es mayor que f de x dos. El orden se invierte.`,
+`Mira la parábola x al cuadrado. Desde menos infinito hasta cero va bajando: es decreciente en el intervalo de menos infinito a cero. Y desde cero en adelante va subiendo: es creciente de cero a infinito.`,
+`Tomemos dos puntos a la derecha, con x uno menor que x dos. Sus imágenes cumplen lo mismo: f de x uno es menor que f de x dos. Eso es crecer.`,
+`Si en la definición pones menor o igual en vez de menor estricto, se dice solo creciente o decreciente, sin el estrictamente. Y una función que es creciente, o decreciente, se llama monótona.`]
+});}
+
+{const cx=[175,410,645,880,1115];const gs=cx.map(c=>G(c,330,40,40));
+const F=[[x=>4*x-1,-0.4,0.82,'4x − 1',1,'f4',['crece en ℝ','']],[x=>Math.sqrt(x),0,2.4,'√x',1,'f4',['crece en [0, ∞[','']],[x=>x*x,-1.53,1.53,'x²',2,'f1',['decrece en ]−∞, 0]','crece en [0, ∞[']],[x=>1/x,-2.4,2.4,'1/x',3,'f6',['decrece en ]−∞, 0[','y en ]0, ∞[ por separado']],[x=>x*x*x,-1.32,1.32,'x³',1,'f4',['crece en ℝ','']]];
+S({title:'¿Dónde crecen las funciones conocidas?',
+html:svg(F.map((f,i)=>{const g=gs[i];return axes(g,-2.4,2.4,-2.4,2.4,0,{xl:false,yl:false})+tx(cx[i],200,f[3],0,'lab')+cv(g,f[0],f[1],f[2],f[5],f[4],{n:480,lim:2.35})+tc(cx[i],462,f[6][0],f[5],f[4],'middle',21)+(f[6][1]?tc(cx[i],492,f[6][1],f[5],f[4],'middle',21):'')}).join(''))+
+N(90,560,1100,'<b>Ojo con 1/<i>x</i>:</b> −1 < 1 y también 1/(−1) = −1 < 1 = 1/1. El orden se mantuvo, así que en la unión <b>no</b> es decreciente.',3),
+beats:[
+`En la práctica, los intervalos de crecimiento se sacan del gráfico. Por eso conviene conocer de memoria cómo se ven estas cinco funciones.`,
+`La recta 4 x menos 1 tiene pendiente positiva, así que crece en todo R. Raíz de x crece en todo su dominio, de cero a infinito. Y x al cubo también crece en todo R.`,
+`x al cuadrado, como vimos, decrece de menos infinito a cero y crece de cero a infinito.`,
+`Y la trampa: uno partido por x. Decrece en el intervalo de menos infinito a cero, y decrece en el intervalo de cero a infinito, pero cada uno por separado. No es decreciente en la unión: toma menos 1 y 1. Menos 1 es menor que 1, y sus imágenes son menos 1 y 1: también menos 1 menor que 1. El orden se mantuvo, así que en la unión no decrece. Esto lo preguntan.`]
+});}
+
+{const g=G(270,580,50,110);
+S({title:'Demostrar que crece: Taller 6, ejercicio 2',
+html:`${svg(`
+${axes(g,-3.8,3.8,-0.3,2.5,0,{yt:[[1,'1']]})}
+${cv(g,x=>Math.sqrt(Math.abs(x)+1),-3.6,3.6,'f1',0)}
+${cv(g,x=>Math.sqrt(x+1),0,3.6,'f4',4,{w:6})}`)}
+${N(560,170,660,'<b>Taller 6.</b> <i>f</i>(<i>x</i>) = √(|<i>x</i>| + 1). Demuestre que es estrictamente creciente para <i>x</i> ≥ 0.',0)}
+${Q(560,272,`x ≥ 0 ⇒ |x| = x ⇒ f(x) = ${rt('x + 1')}`,1,'s')}
+${Q(560,345,'a, b ≥ 0,     a < b',2,'s')}
+${Q(560,410,'⇒  a + 1 < b + 1      {{sumar mantiene}}',3,'s')}
+${Q(560,475,`⇒  ${rt('a + 1')} < ${rt('b + 1')}      {{√ es creciente}}`,4,'s')}
+${Q(560,550,'⇒  f(a) < f(b)',4,'s box')}`,
+beats:[
+`Ahora una demostración de crecimiento, del taller 6. La función es f de x igual a raíz de, valor absoluto de x más 1. Ya sabemos que es par. Nos piden demostrar que es estrictamente creciente para x mayor o igual a cero.`,
+`Primero simplificamos. Si x es mayor o igual a cero, el valor absoluto de x es x mismo. Entonces, en esa zona, f de x es raíz de x más 1.`,
+`La idea es partir de dos números cualesquiera, a y b, mayores o iguales a cero, con a menor que b. A esa desigualdad le vamos aplicando, una por una, las operaciones que forman f, y en cada paso revisamos si la desigualdad se mantiene o se da vuelta.`,
+`Primera operación: sumar 1 a ambos lados. Sumar no cambia el orden: a más 1 es menor que b más 1.`,
+`Segunda operación: sacar raíz cuadrada a ambos lados. La raíz es una función creciente, así que el orden se mantiene: raíz de a más 1, es menor que raíz de b más 1. Y eso es justamente f de a menor que f de b. Demostrado: f es estrictamente creciente de cero a infinito.`]
+});}
+
+S({title:'¿La desigualdad se mantiene o se invierte?',
+html:`
+<div class="panel" style="left:90px;top:178px;width:520px;height:390px" data-b="0"></div>
+<div class="panel" style="left:670px;top:178px;width:520px;height:390px" data-b="0"></div>
+${P(115,200,'Se mantiene','f4',0)}
+${P(695,200,'Se invierte','f6',0)}
+${N(115,258,470,'• Sumar o restar lo mismo<br>• Multiplicar por un <b>positivo</b><br>• Aplicar una función creciente: √, <i>x</i>³, <i>e<sup>x</sup></i>, log con base > 1',1)}
+${Q(115,490,'a < b  ⇒  a + 5 < b + 5',1,'s')}
+${N(695,258,470,'• Multiplicar por un <b>negativo</b><br>• Aplicar 1/<i>x</i> (ambos lados del mismo signo)<br>• Exponencial o log con base <b>entre 0 y 1</b>',2)}
+${Q(695,490,'a < b  ⇒  −3a > −3b',2,'s')}`,
+beats:[
+`Esa técnica sirve siempre, y lo único que hay que cuidar es el sentido de la desigualdad en cada paso. Estas son las reglas.`,
+`La desigualdad se mantiene si sumas o restas lo mismo a ambos lados, si multiplicas por un número positivo, o si aplicas una función creciente: raíz cuadrada, x al cubo, e a la x, o un logaritmo con base mayor que 1.`,
+`La desigualdad se invierte si multiplicas por un número negativo. Por ejemplo, si a es menor que b, entonces menos 3 a es mayor que menos 3 b. También se invierte si aplicas una función decreciente: uno partido por x, cuando ambos lados tienen el mismo signo, o una exponencial o un logaritmo con base entre cero y uno. Esta última regla vuelve con fuerza en el capítulo de logaritmos.`]
+});
+
+S({title:'Álgebra de funciones',
+html:`
+${N(720,185,470,'Para operar dos funciones, operas sus <b>valores</b>, punto por punto.',0)}
+${Q(90,185,'(λf)(x) = λ · f(x)',1,'s')}
+${Q(90,245,'(f ± g)(x) = f(x) ± g(x)',1,'s')}
+${Q(90,305,'(f · g)(x) = f(x) · g(x)',1,'s')}
+${Q(90,375,`(f / g)(x) = ${fr('f(x)','g(x)')}`,2,'s')}
+${Q(430,388,'{{solo si}}  g(x) ≠ 0',2,'s acc')}
+${P(90,485,'Dominios','acc',3)}
+${Q(90,535,'Dom(f ± g) = Dom(f · g) = Dom f ∩ Dom g',3,'s')}
+${Q(90,598,'Dom(f / g) = Dom f ∩ Dom g ∩ { x : g(x) ≠ 0 }',3,'s')}`,
+beats:[
+`Ahora el álgebra de funciones. Es más fácil de lo que suena: para operar dos funciones, operas sus valores, punto por punto.`,
+`Lambda por f, evaluada en x, es lambda por f de x. f más g, en x, es f de x más g de x, e igual con la resta. f por g, en x, es f de x por g de x.`,
+`Y f dividido g, en x, es f de x dividido g de x. Pero solo donde g de x no es cero, porque no se puede dividir por cero.`,
+`Por eso, el dominio de la suma, la resta y el producto es la intersección de los dominios: los x donde ambas funciones existen. Y el dominio del cociente es esa intersección, quitándole los x donde g vale cero.`]
+});
+
+S({title:'Control 4: funciones por tramos',
+html:`
+${N(90,172,300,'<b>Control 4.</b>',0)}
+${Q(90,222,'f(x) = x + 1',0,'s')}
+${Q(400,208,`g(x) = ${cs([['x^2 + 1','x < 0'],[fr('6 − 2x','3 + x'),'x ≥ 0']])}`,0,'s')}
+${P(840,232,'¿En qué tramo cae el número?','acc',1,'nc')}
+${Q(90,355,`{{a)}}  0 ≥ 0 ⇒ g(0) = ${fr('6 − 0','3 + 0')} = 2  ⇒  (4g)(0) = 4 · 2 = 8`,1,'s')}
+${Q(90,462,`{{b)}}  (f/g)(−3) = ${fr('f(−3)','g(−3)')} = ${fr('−3 + 1','(−3)^2 + 1')} = ${fr('−2','10')} = −${fr('1','5')}`,2,'s')}
+${Q(90,570,`{{c)}}  (f · g)(2) = f(2) · g(2) = 3 · ${fr('6 − 4','3 + 2')} = 3 · ${fr('2','5')} = ${fr('6','5')}`,3,'s')}`,
+beats:[
+`Ahora el control 4. f de x es x más 1. Y g es por tramos: si x es menor que cero, g de x es x al cuadrado más 1; si x es mayor o igual a cero, g de x es 6 menos 2 x, dividido 3 más x.`,
+`La regla de oro con funciones por tramos: antes de calcular, mira en qué tramo cae el número. Parte a: 4 g, evaluada en cero. Cero es mayor o igual a cero, así que usamos el segundo tramo: g de cero es 6 menos cero, sobre 3 más cero: 6 tercios, o sea 2. Entonces 4 g de cero es 4 por 2: 8.`,
+`Parte b: f partido g, en menos 3. f de menos 3 es menos 3 más 1: menos 2. Para g, menos 3 es menor que cero, así que primer tramo: menos 3 al cuadrado más 1, que es 9 más 1, diez. El cociente es menos 2 sobre 10: menos un quinto.`,
+`Parte c: f por g, en 2. f de 2 es 3. Y 2 es mayor o igual a cero, así que g de 2 es 6 menos 4, sobre 3 más 2: dos quintos. El producto: 3 por dos quintos, seis quintos.`]
+});
+
+S({title:'Control 4 (d): sumar funciones por tramos',
+html:`
+${N(90,170,1100,'<b>d)</b> <i>g</i> + <i>f</i> por tramos. <i>f</i> no tiene cortes y <i>g</i> corta en 0: los tramos de <i>g</i> + <i>f</i> son los de <i>g</i>.',0)}
+${Q(90,240,'x < 0:     (x^2 + 1) + (x + 1) = x^2 + x + 2',1,'s')}
+${Q(90,318,`x ≥ 0:     ${fr('6 − 2x','3 + x')} + (x + 1) = ${fr('6 − 2x + (x + 1)(x + 3)','x + 3')}`,2,'s')}
+${Q(198,420,`= ${fr('6 − 2x + x^2 + 4x + 3','x + 3')} = ${fr('x^2 + 2x + 9','x + 3')}`,3,'s')}
+${Q(90,530,`(g + f)(x) = ${cs([['x^2 + x + 2','x < 0'],[fr('x^2 + 2x + 9','x + 3'),'x ≥ 0']])}`,4,'s box')}
+${N(740,545,450,'Cortes distintos (en 0 y en 2) → separa en <i>x</i> ≤ 0, 0 < <i>x</i> ≤ 2 y <i>x</i> > 2.',4)}`,
+beats:[
+`Parte d, la que vale 70 puntos: escribir g más f por tramos. Primero los cortes. f es una sola fórmula para todo x, sin cortes. g corta en cero. Entonces g más f tiene los mismos dos tramos que g: x menor que cero, y x mayor o igual a cero.`,
+`Tramo x menor que cero: sumamos el primer tramo de g con f. x al cuadrado más 1, más x más 1. Juntando términos: x al cuadrado más x más 2.`,
+`Tramo x mayor o igual a cero: 6 menos 2 x, sobre 3 más x, más x más 1. Para sumar, ponemos todo sobre el denominador común, x más 3. El x más 1 se multiplica por x más 3 arriba.`,
+`Desarrollamos: x más 1 por x más 3 es x al cuadrado más 4 x más 3. Le sumamos el 6 menos 2 x: queda x al cuadrado más 2 x más 9. Todo sobre x más 3.`,
+`Y lo escribimos como función por tramos. Un consejo: si las dos funciones tuvieran cortes distintos, por ejemplo una en cero y otra en dos, tienes que separar en todos los pedazos que generan los cortes: x menor o igual a cero, entre cero y dos, y mayor que dos. En cada pedazo usas la fórmula que corresponda de cada función.`]
+});
+
+/* ===================== COMPOSICIÓN ===================== */
+CH('Composición de funciones','Clase 13','Capítulo tres: composición. Es meter una función adentro de otra, y lo que más se pregunta es el dominio.');
+
+S({title:'f ∘ g: primero g, después f',
+html:`
+${Q(640,175,'(f ∘ g)(x) = f(g(x))',0,'l c box')}
+${svg(`
+<g data-b="1">
+${tx(118,380,'x',null,'lab')}
+${arr(140,380,248,380,'line','')}
+<rect x="255" y="320" width="170" height="120" rx="14" class="obj" style="stroke:var(--f2)"/>
+<text x="340" y="380" text-anchor="middle" dominant-baseline="central" class="lab" style="fill:var(--f2);font-size:46px">g</text>
+${arr(430,380,558,380,'line','')}
+${tx(494,346,'g(x)',null,'sm')}
+<rect x="565" y="320" width="170" height="120" rx="14" class="obj" style="stroke:var(--f1)"/>
+<text x="650" y="380" text-anchor="middle" dominant-baseline="central" class="lab" style="fill:var(--f1);font-size:46px">f</text>
+${arr(740,380,868,380,'line','')}
+${tx(960,380,'f(g(x))',null,'lab')}
+<circle id="tok" r="10" style="fill:var(--ink)"/>
+</g>`)}
+${N(90,490,1100,'Se escribe <i>f</i> primero, pero se aplica <b>primero <i>g</i></b>: la de la derecha.',2)}
+${Q(90,570,'f ∘ g ≠ g ∘ f     {{(no conmutativa)}}',3,'s')}
+${Q(640,570,'f ∘ (g ∘ h) = (f ∘ g) ∘ h     {{(asociativa)}}',3,'s')}`,
+beats:[
+`La composición de f con g se anota f círculo g, y se define así: f círculo g, evaluada en x, es f de g de x. Es decir, metes g adentro de f.`,
+`Piénsalo como dos máquinas en fila. Entra un número x. Primero pasa por la máquina g, que lo transforma en g de x. Ese resultado entra a la máquina f, que entrega f de g de x.`,
+`Ojo con el orden: aunque se escribe f primero, se aplica primero g, la de la derecha. Es como ponerse los calcetines y después los zapatos: el orden importa.`,
+`Por eso la composición no es conmutativa: en general, f círculo g es distinto de g círculo f. Lo que sí cumple es ser asociativa: f círculo, g círculo h, es lo mismo que, f círculo g, círculo h.`],
+loop(st,r){const p=(st*.28)%1,x=118+p*842;setT(r,'tok',x,380);const e=r.querySelector('#tok');if(e)e.style.fill=x<340?'var(--ink)':x<650?'var(--f2)':'var(--f1)'}
+});
+
+S({title:'El dominio de una composición',
+html:`
+${Q(90,178,'Dom(f ∘ g) = { x ∈ Dom(g) : g(x) ∈ Dom(f) }',0,'s box')}
+${N(90,250,1100,'<b>Dos condiciones:</b> <i>x</i> tiene que poder entrar a <i>g</i>, y <i>g</i>(<i>x</i>) tiene que poder entrar a <i>f</i>.',0)}
+${P(90,322,'Ejemplo','acc',1)}
+${Q(230,316,`f(x) = ${rt('x')},     g(x) = x^4 + 1`,1,'s')}
+${Q(90,392,`(f ∘ g)(x) = ${rt('x^4 + 1')}`,1,'s')}
+${N(560,398,640,'<i>x</i>⁴ + 1 ≥ 1 > 0 siempre → <b>Dom = ℝ</b>',1)}
+${Q(90,470,`(g ∘ f)(x) = (${rt('x')})^4 + 1 = x^2 + 1`,2,'s')}
+${P(640,476,'f ∘ g ≠ g ∘ f','f2',2,'nc')}
+${N(90,540,1100,'Pero primero hay que calcular √<i>x</i>, que necesita <i>x</i> ≥ 0 → <b>Dom = [0, +∞[</b>',3)}
+${P(90,610,'El dominio sale de la definición, no de la fórmula simplificada','f6',3,'nc')}`,
+beats:[
+`Lo más preguntado de composición es el dominio. El dominio de f círculo g son los x que cumplen dos condiciones: x tiene que estar en el dominio de g, para poder entrar a la primera máquina, y g de x tiene que estar en el dominio de f, para poder entrar a la segunda.`,
+`Ejemplo de la clase: f de x igual a raíz de x, y g de x igual a x a la cuarta más 1. f círculo g es raíz de, x a la cuarta más 1. ¿Dominio? x a la cuarta es siempre mayor o igual a cero, así que x a la cuarta más 1 es siempre al menos 1, positivo. La raíz siempre existe: el dominio es todo R.`,
+`Ahora al revés: g círculo f es raíz de x, a la cuarta, más 1. Y raíz de x a la cuarta es x al cuadrado, así que la fórmula se simplifica a x al cuadrado más 1. Ya ves que el resultado es distinto: f círculo g no es igual a g círculo f.`,
+`Pero cuidado con el dominio. Aunque x al cuadrado más 1 existe para todo x, para calcular g círculo f primero hay que calcular raíz de x, y eso solo existe si x es mayor o igual a cero. El dominio es de cero a infinito. El dominio se saca de la definición, nunca de la fórmula ya simplificada.`]
+});
+
+S({title:'Composición por tramos: Taller 6, ejercicio 3',
+html:`
+${Q(90,190,`f(x) = ${cs([[rt('x'),'x ≥ 0'],['x^2','x < 0']])}`,0,'s')}
+${Q(560,190,'h : [4, +∞[ → ℝ,     h(x) = x + 1',0,'s')}
+${N(560,250,600,'Determine <i>h</i> ∘ <i>f</i>.',0)}
+${Q(90,330,'Dom(h ∘ f) = { x ∈ Dom f : f(x) ∈ [4, +∞[ } = { x : f(x) ≥ 4 }',1,'s box')}
+${LI(90,430,1,'Recorre cada tramo de la función <b>de adentro</b> (aquí, <i>f</i>).',2)}
+${LI(90,500,2,'En cada uno: ¿qué necesita <i>x</i> para que <i>f</i>(<i>x</i>) caiga donde corresponde? Siempre termina en una <b>inecuación</b>.',2)}
+${LI(90,606,3,'Junta los pedazos y reemplaza en la función de afuera.',2)}`,
+beats:[
+`Ahora un ejercicio del taller 6 que mezcla todo. f es por tramos: raíz de x si x es mayor o igual a cero, y x al cuadrado si x es menor que cero. Y h va de 4 coma infinito en R, con h de x igual a x más 1. Nos piden h círculo f.`,
+`Lo primero es el dominio. Por la definición: x tiene que estar en el dominio de f, que es todo R, y f de x tiene que estar en el dominio de h. El dominio de h es de 4 a infinito, o sea, necesitamos f de x mayor o igual a 4.`,
+`El método para composición por tramos es: recorre cada tramo de la función de adentro, que aquí es f, y en cada uno pregúntate qué condición necesita x para que f de x caiga donde corresponde en la de afuera. Eso siempre termina siendo una inecuación. Después juntas los pedazos.`]
+});
+
+{const g=G(150,600,21,50);
+S({title:'Tramo por tramo',
+html:`${svg(`
+${axes(g,-4.5,21,-0.3,6.3,0,{xt:[[-2,'−2'],[16,'16']],yt:[[4,'4']]})}
+${cv(g,x=>Math.sqrt(x),0,21,'f1',0)}${cv(g,x=>x*x,-2.49,0,'f1',0)}
+${dl(g.X(-4.5),g.Y(4),g.X(21),g.Y(4),2,'f5')}${tc(g.X(21)+8,g.Y(4)-22,'y = 4','f5',2,'end',22)}
+${cv(g,x=>Math.sqrt(x),16,21,'f4',2,{w:7})}${cv(g,x=>x*x,-2.49,-2,'f4',2,{w:7})}
+${fdot(g.X(16),g.Y(4),'f4',2)}${fdot(g.X(-2),g.Y(4),'f4',2)}`)}
+${Q(660,178,`x ≥ 0:   ${rt('x')} ≥ 4  ⇔  x ≥ 16`,0,'s')}
+${Q(660,252,'x < 0:   x^2 ≥ 4  ⇔  x ≤ −2  {{o}}  x ≥ 2',1,'s')}
+${Q(800,310,'→   x ≤ −2',1,'s')}
+${Q(660,405,`(h ∘ f)(x) = ${cs([[rt('x')+' + 1','x ≥ 16'],['x^2 + 1','x ≤ −2']])}`,3,'s box')}
+${Q(660,530,'Dom = ]−∞, −2] ∪ [16, +∞[',3,'s')}
+${N(660,600,560,'<i>x</i> + 1 en ℝ y <i>x</i> + 1 en [4, +∞[ son funciones <b>distintas</b>.',4)}`,
+beats:[
+`Tramo uno: x mayor o igual a cero. Ahí f de x es raíz de x. Necesitamos raíz de x mayor o igual a 4. Como ambos lados son positivos, elevamos al cuadrado sin cambiar el sentido: x mayor o igual a 16. Y eso ya cumple x mayor o igual a cero. Queda x mayor o igual a 16.`,
+`Tramo dos: x menor que cero. Ahí f de x es x al cuadrado. Necesitamos x al cuadrado mayor o igual a 4. Eso pasa si x es menor o igual a menos 2, o mayor o igual a 2. Pero en este tramo x es negativo, así que nos quedamos con x menor o igual a menos 2.`,
+`En el gráfico se ve clarito: la línea punteada es la altura 4, y solo sirven los pedazos del gráfico de f que están sobre esa línea o arriba de ella: a la izquierda desde menos 2 hacia afuera, y a la derecha desde 16.`,
+`Ahora armamos la respuesta. En cada pedazo, h de f de x es f de x más 1. Si x es mayor o igual a 16: raíz de x más 1. Si x es menor o igual a menos 2: x al cuadrado más 1. Y el dominio es de menos infinito a menos 2, unión de 16 a infinito.`,
+`Una moraleja del taller: g de x igual a x más 1 en todo R, y h de x igual a x más 1 en 4 coma infinito, son funciones distintas, aunque tengan la misma fórmula. Una función es su fórmula más su dominio.`]
+});}
+
+/* ===================== INVERSA ===================== */
+CH('Función inversa','Clase 14','Capítulo cuatro: inyectiva, sobreyectiva y la función inversa. Es la llave del certamen.');
+
+{const g1=G(330,630,60,45),g2=G(930,470,60,19);
+S({title:'Inyectiva: no repite valores',
+html:`${svg(`
+${axes(g1,-2.8,2.8,-0.3,7.3,1,{yl:false})}
+${cv(g1,x=>x*x,-2.55,2.55,'f1',1,{lim:7.1})}
+<g data-b="1"><line id="hl1" class="ln2" style="stroke:var(--f5);stroke-width:2.5"/><circle id="d1a" r="8" style="fill:var(--f6)"/><circle id="d1b" r="8" style="fill:var(--f6)"/></g>
+${tc(330,668,'x²: dos cortes → no inyectiva','f6',1,'middle',22)}
+${axes(g2,-2.4,2.4,-8.8,8.8,2,{yl:false})}
+${cv(g2,x=>x*x*x,-2.05,2.05,'f4',2,{lim:8.7})}
+<g data-b="2"><line id="hl2" class="ln2" style="stroke:var(--f5);stroke-width:2.5"/><circle id="d2" r="8" style="fill:var(--f4)"/></g>
+${tc(930,668,'x³: un corte → inyectiva','f4',2,'middle',22)}`)}
+${Q(90,178,'u ≠ v  ⇒  f(u) ≠ f(v)',0,'s')}
+${Q(640,178,'f(u) = f(v)  ⇒  u = v',3,'s box')}
+${N(640,238,560,'(la versión que se usa para demostrar)',3)}`,
+beats:[
+`Para que una función tenga inversa, necesita dos propiedades. La primera es ser inyectiva. Inyectiva significa que no repite valores: dos x distintos nunca dan el mismo resultado.`,
+`Mira x al cuadrado. Una recta horizontal la corta en dos puntos. Por ejemplo, f de menos 1 y f de 1 dan lo mismo, 1. Repite valores, así que x al cuadrado no es inyectiva en R. Para demostrar que una función no es inyectiva basta ese contraejemplo.`,
+`Ahora x al cubo. Cualquier recta horizontal la corta en un solo punto. Nunca repite valores: es inyectiva. Ese es el test de la recta horizontal: si alguna recta horizontal corta dos veces el gráfico, la función no es inyectiva.`,
+`Para demostrarlo con álgebra se usa la versión de la derecha: supones que f de u es igual a f de v, y despejas hasta llegar a u igual a v. Si siempre llegas a eso, la función es inyectiva.`],
+loop(st,r){const c1=3.5+3*Math.sin(st*.9),Y1=g1.Y(c1),s1=Math.sqrt(c1);const h1=r.querySelector('#hl1');if(h1){h1.setAttribute('x1',g1.X(-2.8));h1.setAttribute('x2',g1.X(2.8));h1.setAttribute('y1',Y1);h1.setAttribute('y2',Y1)}setT(r,'d1a',g1.X(-s1),Y1);setT(r,'d1b',g1.X(s1),Y1);
+  const c2=7.5*Math.sin(st*.7),Y2=g2.Y(c2);const h2=r.querySelector('#hl2');if(h2){h2.setAttribute('x1',g2.X(-2.4));h2.setAttribute('x2',g2.X(2.4));h2.setAttribute('y1',Y2);h2.setAttribute('y2',Y2)}setT(r,'d2',g2.X(Math.cbrt(c2)),Y2)}
+});}
+
+S({title:'Sobreyectiva, biyectiva, invertible',
+html:`${svg(`
+<g data-b="0">
+<ellipse cx="260" cy="420" rx="120" ry="185" class="ln2" style="fill:rgba(143,199,255,.05)"/>
+<ellipse cx="620" cy="420" rx="120" ry="185" class="ln2" style="fill:rgba(180,140,255,.05)"/>
+${tx(260,212,'A',null,'lab')}${tx(620,212,'B',null,'lab')}
+${tx(260,630,'dominio',null,'sm')}${tx(620,630,'codominio',null,'sm')}
+${dot(260,320)}${dot(260,420)}${dot(260,520)}
+${dot(620,300)}${dot(620,385)}${dot(620,470)}
+${arr(270,320,605,302,'f1','')}${arr(270,420,605,387,'f1','')}${arr(270,520,605,468,'f1','')}
+</g>
+<g data-b="1"><ellipse cx="620" cy="385" rx="46" ry="122" class="ln2 dashl" style="stroke:var(--f4);fill:none"/>${tc(678,262,'Rec(f)','f4',null,'start',22)}
+<circle cx="620" cy="555" r="8" style="fill:var(--f6)"/>${tc(642,556,'nadie llega','f6',null,'start',22)}</g>`)}
+${Q(820,180,'f : A → B',0,'s')}
+${N(820,238,400,'<b>A</b>: dominio. <b>B</b>: codominio.',0)}
+${Q(820,320,'{{Sobreyectiva:}}  Rec(f) = B',2,'s')}
+${N(820,395,420,'<b>Biyectiva:</b> inyectiva y sobreyectiva.',3)}
+${Q(820,470,'f {{invertible}}  ⇔  f {{biyectiva}}',3,'s box')}`,
+beats:[
+`La segunda propiedad es ser sobreyectiva. Toda función se escribe f, de A en B. A es el dominio, los x que entran. B es el codominio, el conjunto donde se declara que viven los resultados.`,
+`El recorrido son los valores que f realmente alcanza. Puede pasar que haya elementos de B a los que nadie llega, como este punto rojo. Entonces f no es sobreyectiva.`,
+`f es sobreyectiva cuando el recorrido es igual al codominio: todo elemento de B es alcanzado por alguien. Para demostrarlo, calculas el recorrido y verificas que te dé B completo.`,
+`Si f es inyectiva y sobreyectiva a la vez, se dice biyectiva. Y el teorema clave de la clase 14: f es invertible si y solo si f es biyectiva. Cada elemento de B viene de exactamente un elemento de A, así que se puede devolver sin ambigüedad.`]
+});
+
+{const g=G(130,620,65,65);
+S({title:'La inversa deshace lo que hizo f',
+html:`${svg(`
+${axes(g,-0.3,6.7,-0.3,6.7,1,{xt:[2,4],yt:[2,4]})}
+${dl(g.X(0),g.Y(0),g.X(6.3),g.Y(6.3),3)}${tc(g.X(6.3)+10,g.Y(6.3)+4,'y = x','dim',3,'start',22)}
+${cv(g,Math.sqrt,0,6.4,'f1',3)}${cv(g,x=>x*x,0,2.53,'f2',3,{lim:6.45})}
+${tc(g.X(6.2),g.Y(2.49)+30,'f','f1',3,'middle',28)}${tc(g.X(2.4)-28,g.Y(5.76),'f⁻¹','f2',3,'middle',28)}
+<g data-b="3">${dl(g.X(4),g.Y(2),g.X(2),g.Y(4),null,'f5')}${fdot(g.X(4),g.Y(2),'f5',null)}${fdot(g.X(2),g.Y(4),'f5',null)}
+${tc(g.X(4)+14,g.Y(2)+24,'(4, 2)','f5',null,'start',22)}${tc(g.X(2)-14,g.Y(4)-22,'(2, 4)','f5',null,'end',22)}
+<line id="ms" class="ln2" style="stroke:var(--acc);stroke-dasharray:4 6"/><circle id="mp" r="7" style="fill:var(--f1)"/><circle id="mq" r="7" style="fill:var(--f2)"/></g>`)}
+${Q(650,175,'f^{−1}',0,'l acc')}
+${N(760,186,440,'deshace lo que hizo <i>f</i>. <b>No</b> es 1/<i>f</i>.',0)}
+${Q(650,280,'Dom(f^{−1}) = Rec(f)',1,'s')}
+${Q(650,338,'Rec(f^{−1}) = Dom(f)',1,'s')}
+${Q(650,425,'f(f^{−1}(x)) = x',2,'s')}
+${Q(650,483,'f^{−1}(f(x)) = x',2,'s')}
+${N(650,570,560,'Gráfico: el reflejo de <i>f</i> en la recta <b><i>y</i> = <i>x</i></b>.',3)}`,
+beats:[
+`Si f es biyectiva, su inversa, que se anota f a la menos 1, es la función que deshace lo que hizo f. Si f lleva x a y, la inversa lleva y de vuelta a x. Ojo: f a la menos uno no es uno partido por f. Es solo una notación.`,
+`Por eso, el dominio de la inversa es el recorrido de f, y el recorrido de la inversa es el dominio de f: se intercambian los papeles de entrada y salida.`,
+`Y si compones una con la otra, se anulan: f de f inversa de x es x, y f inversa de f de x es x. Como ponerse un zapato y sacárselo.`,
+`Gráficamente, como la inversa intercambia x con y, su gráfico es el reflejo del gráfico de f en la recta y igual a x. Aquí f es raíz de x, en morado. El punto 4 coma 2 está en f. Su reflejo, 2 coma 4, está en la inversa, que es x al cuadrado con x mayor o igual a cero, en celeste.`],
+loop(st,r){const t=3.2+2.8*Math.sin(st*.6),p=[g.X(t),g.Y(Math.sqrt(t))],q=[g.X(Math.sqrt(t)),g.Y(t)];setT(r,'mp',p[0],p[1]);setT(r,'mq',q[0],q[1]);const s=r.querySelector('#ms');if(s){s.setAttribute('x1',p[0]);s.setAttribute('y1',p[1]);s.setAttribute('x2',q[0]);s.setAttribute('y2',q[1])}}
+});}
+
+S({title:'Cómo encontrar la inversa',
+html:`
+${LI(90,185,1,'<b>¿Biyectiva?</b> Si no lo es, restringe el dominio a un pedazo donde sí lo sea.',0)}
+${LI(90,265,2,'Escribe <b><i>y</i> = <i>f</i>(<i>x</i>)</b>.',1)}
+${LI(90,345,3,'<b>Despeja <i>x</i></b> en función de <i>y</i>, con cuidado con los signos y las raíces.',2)}
+${LI(90,425,4,'¿Para qué <i>y</i> existe el despeje? Debe coincidir con el <b>recorrido</b> de <i>f</i>.',3)}
+${LI(90,505,5,'Cambia <i>y</i> por <i>x</i>: eso es <b><i>f</i>⁻¹(<i>x</i>)</b>. Anota su dominio y su codominio.',4)}`,
+beats:[
+`Ahora, el método para encontrar la inversa. Paso uno: asegúrate de que f sea biyectiva. Si no lo es, se restringe el dominio a un pedazo donde sí lo sea.`,
+`Paso dos: escribe y igual a f de x.`,
+`Paso tres: despeja x en función de y. Es puro álgebra, cuidando los signos y las raíces.`,
+`Paso cuatro: revisa para qué valores de y existe ese despeje. Esos valores tienen que coincidir con el recorrido de f. Es un buen chequeo de que vas bien.`,
+`Paso cinco: cambia el nombre de la variable. Donde dice y, escribe x, y eso es f inversa de x. Anota también su dominio y su codominio: son el codominio y el dominio de f, intercambiados.`]
+});
+
+S({title:'Ejemplo: Guía 10, problema 8',
+html:`
+${Q(90,175,`f : ℝ∖{2} → ℝ∖{3},     f(x) = ${fr('3x − 5','x − 2')}`,0,'s')}
+${Q(90,282,`y = ${fr('3x − 5','x − 2')}   ⇒   y(x − 2) = 3x − 5`,1,'s')}
+${Q(90,375,'y<i>x</i> − 2y = 3x − 5',2,'s')}
+${Q(90,432,'y<i>x</i> − 3x = 2y − 5',2,'s')}
+${Q(90,495,`x(y − 3) = 2y − 5   ⇒   x = ${fr('2y − 5','y − 3')},    y ≠ 3`,3,'s')}
+${Q(90,592,`f^{−1}(x) = ${fr('2x − 5','x − 3')},     f^{−1} : ℝ∖{3} → ℝ∖{2}`,4,'s box')}
+${N(800,375,400,'Lo que tiene <i>x</i> a un lado, lo que no tiene <i>x</i> al otro. Después factoriza <i>x</i>.',2)}
+${N(800,505,400,'<i>y</i> ≠ 3: justo el que falta en el codominio. ✓',3)}`,
+beats:[
+`Ejemplo de la guía 10. f va de R menos el 2, en R menos el 3, y f de x es 3 x menos 5, sobre x menos 2. Encontremos su inversa.`,
+`Escribimos y igual a 3 x menos 5 sobre x menos 2. Para sacar la fracción, multiplicamos por x menos 2 a ambos lados: y por, x menos 2, igual a 3 x menos 5.`,
+`Distribuimos: y x menos 2 y igual a 3 x menos 5. Ahora juntamos a la izquierda todo lo que tiene x, y a la derecha lo que no tiene x: y x menos 3 x, igual a 2 y menos 5.`,
+`Factorizamos x: x por, y menos 3, igual a 2 y menos 5. Y dividimos por y menos 3, que se puede siempre que y sea distinto de 3. Queda x igual a 2 y menos 5, sobre y menos 3. Fíjate: el 3 es justo el que falta en el codominio. Calza.`,
+`Cambiamos y por x: f inversa de x es 2 x menos 5, sobre x menos 3, y va de R menos el 3 en R menos el 2.`]
+});
+
+S({title:'Taller 6, ejercicio 4: recorrido e inyectividad',
+html:`
+${Q(90,175,`g : ]−∞, 3] → ]−∞, −5],     g(x) = −5 − ${rt('3 − x')}`,0,'s')}
+${P(90,250,'Recorrido','acc',1)}
+${Q(90,298,`x ≤ 3   ⇒   3 − x ≥ 0   ⇒   ${rt('3 − x')} ≥ 0`,1,'s')}
+${Q(90,362,`⇒   −${rt('3 − x')} ≤ 0   {{(× −1 invierte)}}   ⇒   −5 − ${rt('3 − x')} ≤ −5`,2,'s')}
+${Q(90,430,'Rec(g) = ]−∞, −5] = {{codominio}}   ⇒   {{sobreyectiva}}',3,'s')}
+${P(90,510,'Inyectiva','acc',4)}
+${Q(90,556,`g(x_1) = g(x_2) ⇒ ${rt('3 − x_1')} = ${rt('3 − x_2')} ⇒ 3 − x_1 = 3 − x_2 ⇒ x_1 = x_2`,4,'xs')}
+${P(90,620,'Inyectiva y sobreyectiva → biyectiva → tiene inversa','f4',4,'nc')}`,
+beats:[
+`Ahora un ejercicio completo, del taller 6. g va de menos infinito coma 3, cerrado, en menos infinito coma menos 5, y g de x es menos 5 menos raíz de, 3 menos x. Nos piden el recorrido, ver si es sobreyectiva, si es inyectiva, y la inversa.`,
+`Recorrido. Partimos de lo que sabemos, x menor o igual a 3, y vamos construyendo g de a poco. Pasamos x al otro lado: 3 menos x es mayor o igual a cero. Sacamos raíz, que mantiene el orden: raíz de 3 menos x, mayor o igual a cero.`,
+`Multiplicamos por menos 1, y eso da vuelta la desigualdad: menos raíz de 3 menos x, menor o igual a cero. Y restamos 5: menos 5 menos raíz de 3 menos x, menor o igual a menos 5. Eso es g de x. El recorrido es de menos infinito a menos 5.`,
+`Como el recorrido es igual al codominio, g es sobreyectiva.`,
+`Inyectiva: supongamos g de x uno igual a g de x dos. Sumamos 5 y cambiamos el signo: raíz de 3 menos x uno igual a raíz de 3 menos x dos. Elevamos al cuadrado: 3 menos x uno igual a 3 menos x dos. Y despejando, x uno igual a x dos. Es inyectiva. Por lo tanto es biyectiva, y tiene inversa.`]
+});
+
+{const g=G(1040,282,28,28);
+S({title:'Taller 6, ejercicio 4: la inversa',
+html:`${svg(`
+${axes(g,-10,4,-10,4,3,{xt:[[-5,'−5'],[3,'3']],yt:[[-5,'−5'],[3,'3']]})}
+${dl(g.X(-10),g.Y(-10),g.X(4),g.Y(4),3)}
+${cv(g,x=>-5-Math.sqrt(3-x),-9.5,3,'f1',3)}${cv(g,x=>3-(x+5)*(x+5),-8.54,-5,'f2',3)}
+${fdot(g.X(3),g.Y(-5),'f1',3)}${fdot(g.X(-5),g.Y(3),'f2',3)}
+${tc(g.X(3)+12,g.Y(-5)+26,'g','f1',3,'start',28)}${tc(g.X(-5)+14,g.Y(3)-8,'g⁻¹','f2',3,'start',28)}`)}
+${Q(80,180,`y = −5 − ${rt('3 − x')}`,0,'s')}
+${Q(80,245,`⇒   ${rt('3 − x')} = −(5 + y)`,0,'s')}
+${N(80,315,620,'¿Puede ser negativo? No: <i>y</i> ≤ −5 ⇒ 5 + <i>y</i> ≤ 0 ⇒ −(5 + <i>y</i>) ≥ 0. ✓',1)}
+${Q(80,410,'⇒   3 − x = (5 + y)^2   ⇒   x = 3 − (y + 5)^2',2,'s')}
+${Q(80,495,'g^{−1}(x) = 3 − (x + 5)^2',3,'s box')}
+${Q(80,575,'g^{−1} : ]−∞, −5] → ]−∞, 3]',3,'s')}`,
+beats:[
+`Ahora la inversa. Escribimos y igual a menos 5 menos raíz de 3 menos x, y despejamos x. Primero aislamos la raíz: raíz de 3 menos x igual a menos 5 menos y, que es lo mismo que menos, 5 más y.`,
+`¿Eso puede ser negativo? No: como y está en el recorrido, y es menor o igual a menos 5. Entonces 5 más y es menor o igual a cero, y menos, 5 más y, es mayor o igual a cero. Coincide con que una raíz nunca es negativa. Todo en orden.`,
+`Elevamos al cuadrado: 3 menos x igual a, 5 más y, al cuadrado. Y despejamos: x igual a 3 menos, y más 5, al cuadrado.`,
+`Cambiamos y por x: g inversa de x es 3 menos, x más 5, al cuadrado, y va de menos infinito coma menos 5, en menos infinito coma 3. Mira el gráfico: g en morado y su inversa en celeste, reflejadas en la recta y igual a x.`]
+});}
+
+{const g=G(170,590,50,50);
+S({title:'Restringir el dominio para invertir',
+html:`${svg(`
+${axes(g,-1,8.2,-1,8.2,0,{xt:[1,2,3],yt:[3,4]})}
+<g id="lefth">${cv(g,x=>(x-2)*(x-2)+3,-0.3,2,'f1',null)}</g>${cv(g,x=>(x-2)*(x-2)+3,2,4.35,'f1',null)}
+${fdot(g.X(2),g.Y(3),'f1',0)}${tc(g.X(2)-12,g.Y(3)+26,'(2, 3)','f1',0,'end',22)}
+${dl(g.X(1),g.Y(4),g.X(3),g.Y(4),1,'f6')}${fdot(g.X(1),g.Y(4),'f6',1)}${fdot(g.X(3),g.Y(4),'f6',1)}
+${dl(g.X(-1),g.Y(-1),g.X(8),g.Y(8),3)}
+${cv(g,x=>2+Math.sqrt(x-3),3,8.2,'f2',3)}${fdot(g.X(3),g.Y(2),'f2',3)}
+${tc(g.X(8),g.Y(4.24)+26,'f⁻¹','f2',3,'middle',28)}`)}
+${Q(650,180,'f(x) = x^2 − 4x + 7 = (x − 2)^2 + 3',0,'s')}
+${Q(650,255,'f(1) = f(3) = 4   ⇒   {{no inyectiva en}} ℝ',1,'s')}
+${Q(650,320,'{{Restringimos a}} [2, +∞[   →   Rec = [3, +∞[',1,'s')}
+${Q(650,400,`(x − 2)^2 = y − 3   ⇒   x − 2 = +${rt('y − 3')}`,2,'s')}
+${N(650,462,560,'Signo <b>+</b> porque <i>x</i> ≥ 2 ⇒ <i>x</i> − 2 ≥ 0.',2)}
+${Q(650,545,`f^{−1}(x) = 2 + ${rt('x − 3')},    x ≥ 3`,3,'s box')}`,
+beats:[
+`Último caso de inversa: cuando f no es inyectiva, se restringe el dominio. Ejemplo: f de x igual a x al cuadrado menos 4 x más 7. Completando el cuadrado, es, x menos 2, al cuadrado, más 3. Una parábola con vértice en 2 coma 3.`,
+`Como toda parábola, no es inyectiva: f de 1 y f de 3 dan 4 las dos. Pero si nos quedamos solo con la mitad derecha, desde x igual a 2, sí es inyectiva. En ese pedazo, el recorrido es de 3 a infinito.`,
+`Despejamos: y igual a, x menos 2, al cuadrado, más 3. Restamos 3: x menos 2 al cuadrado es y menos 3. Sacamos raíz. Ojo aquí: la raíz de un cuadrado es un valor absoluto, pero como x es mayor o igual a 2, x menos 2 es positivo, así que va el signo más: x menos 2 igual a raíz de y menos 3.`,
+`Entonces f inversa de x es 2 más raíz de x menos 3, con dominio de 3 a infinito. Si hubiéramos elegido la mitad izquierda, iría el signo menos. El signo de la raíz lo decide el dominio que elegiste.`],
+on(j){},
+loop(st,r,j){const e=r.querySelector('#lefth');if(e)e.style.opacity=j>=1?'.22':'1'}
+});}
+
+/* ===================== EXP Y LOG ===================== */
+CH('Exponencial y logaritmo','Clase 15','Capítulo cinco: la exponencial y el logaritmo. Aquí hay una regla que importa más que todas, y la vamos a repetir varias veces.');
+
+{const g=G(330,620,60,50);
+S({title:'La función exponencial',
+html:`${svg(`
+${axes(g,-3.3,3.3,-0.3,8.4,0,{xt:[[-2,'−2'],[-1,'−1'],1,2,3],yt:[1,2,4,8]})}
+${cv(g,x=>Math.pow(2,x),-3.2,3.05,'f1',1,{lim:8.3})}
+${cv(g,x=>Math.pow(.5,x),-3.05,3.2,'f2',2,{lim:8.3})}
+${fdot(g.X(0),g.Y(1),'acc',1)}
+${tc(g.X(3)-14,g.Y(8)-6,'2'+sup('x'),'f1',1,'end',28)}${tc(g.X(-3)+14,g.Y(8)-6,'(½)'+sup('x'),'f2',2,'start',28)}`)}
+${Q(640,180,'f(x) = a^{x},     a > 0,   a ≠ 1',0,'s')}
+${Q(640,245,'f : ℝ → ]0, +∞[',0,'s')}
+${N(640,328,560,'<i>a</i>⁰ = 1: todas pasan por (0, 1).',1)}
+${P(640,410,'a > 1  →  creciente','f1',3,'nc')}
+${P(640,465,'0 < a < 1  →  decreciente','f2',3,'nc')}
+${N(640,545,560,'<i>a<sup>x</sup></i> > 0 <b>siempre</b>: nunca da cero ni negativo.',3)}`,
+beats:[
+`La función exponencial es f de x igual a a elevado a x, donde la base a es un número positivo y distinto de 1. Va de R en cero, infinito abierto.`,
+`Mira 2 a la x, en morado. En x igual a cero vale 1, porque cualquier base elevada a cero es 1. En x igual a 1 vale 2, en 2 vale 4, en 3 vale 8: se duplica cada vez que avanzas uno. Hacia la izquierda se va acercando a cero, pero nunca lo toca.`,
+`Ahora un medio a la x, en celeste. Es el reflejo: hacia la derecha se achica, y hacia la izquierda crece. Las dos pasan por el punto cero coma uno.`,
+`La regla: si la base es mayor que 1, la exponencial es creciente. Si la base está entre cero y uno, es decreciente. Y en los dos casos, a a la x es siempre positivo. Nunca da cero ni negativo. Esto lo vamos a usar para descartar soluciones.`]
+});}
+
+{const g=G(268,444,48,48);
+S({title:'El logaritmo: la inversa de la exponencial',
+html:`${svg(`
+${axes(g,-3.5,7,-3.5,5.5,0,{xt:[2,4],yt:[2,4]})}
+${cv(g,x=>Math.pow(2,x),-3.4,2.45,'f1',0)}
+${dl(g.X(-3.5),g.Y(-3.5),g.X(5.5),g.Y(5.5),2)}${tc(g.X(5.5)+8,g.Y(5.5)+4,'y = x','dim',2,'start',22)}
+${cv(g,x=>Math.log2(x),0.095,7,'f2',2)}
+${dl(g.X(2),g.Y(4),g.X(4),g.Y(2),2,'f5')}${fdot(g.X(2),g.Y(4),'f5',2)}${fdot(g.X(4),g.Y(2),'f5',2)}
+${tc(g.X(2)-14,g.Y(4)-6,'(2, 4)','f5',2,'end',22)}${tc(g.X(4)+14,g.Y(2)+22,'(4, 2)','f5',2,'start',22)}
+${tc(g.X(2.45)-16,g.Y(5.4),'2'+sup('x'),'f1',0,'end',28)}${tc(g.X(7),g.Y(2.81)-26,'log₂ x','f2',2,'end',26)}`)}
+${Q(660,175,'y = a^{x}   ⇔   log_a y = x',0,'s box')}
+${N(660,250,540,'¿A qué exponente hay que elevar <i>a</i> para obtener <i>y</i>?',1)}
+${Q(660,345,'log_2 8 = 3   {{porque}}   2^3 = 8',1,'xs')}
+${Q(660,393,'log_{10} 1000 = 3,       log_a 1 = 0',1,'xs')}
+${Q(660,458,'log_a : ]0, +∞[ → ℝ',3,'s')}
+${N(660,513,540,'Solo existe para argumentos <b>positivos</b>.',3)}
+${Q(660,582,'log x = log_{10} x,     ln x = log_{e} x,     e ≈ 2,718',4,'xs')}`,
+beats:[
+`Como la exponencial es biyectiva, tiene inversa. Esa inversa es el logaritmo en base a. La definición es esta equivalencia: y igual a a a la x, si y solo si, logaritmo en base a de y igual a x.`,
+`En palabras, el logaritmo responde una pregunta: ¿a qué exponente tengo que elevar la base para obtener este número? Logaritmo en base 2 de 8 es 3, porque 2 al cubo es 8. Logaritmo en base 10 de mil es 3. Y logaritmo de 1, en cualquier base, es cero, porque cualquier base elevada a cero es 1.`,
+`Como es la inversa, su gráfico es el reflejo de la exponencial en la recta y igual a x. El punto 2 coma 4 de 2 a la x se transforma en el punto 4 coma 2 del logaritmo en base 2.`,
+`Y como se intercambian dominio y recorrido, el logaritmo solo existe para números positivos. Logaritmo de cero o de un negativo, no existe. Esa es la primera condición que revisas siempre.`,
+`Dos notaciones: log de x, sin base escrita, es en base 10. Y ele ene de x es el logaritmo natural, en base e, un número cercano a 2 coma 718. Si la base es mayor que 1, el logaritmo es creciente; si está entre cero y uno, es decreciente. Igual que la exponencial.`]
+});}
+
+S({title:'Propiedades',
+html:`
+${P(90,180,'Exponencial','f1',0)}${P(620,180,'Logaritmo','f2',0)}
+${Q(90,238,'a^{x} · a^{y} = a^{x + y}',1,'s')}${Q(620,238,'log_a(x · y) = log_a x + log_a y',1,'s')}
+${Q(90,305,'a^{x} / a^{y} = a^{x − y}',2,'s')}${Q(620,305,'log_a(x / y) = log_a x − log_a y',2,'s')}
+${Q(90,372,'(a^{x})^{y} = a^{x<i>y</i>}',3,'s')}${Q(620,372,'log_a(x^{y}) = y · log_a x',3,'s hl')}
+${Q(90,439,'a^{log_a x} = x',4,'s')}${Q(620,439,'log_a(a^{x}) = x',4,'s')}
+${Q(90,530,`log_a x = ${fr('log_b x','log_b a')}`,5,'s box')}
+${Q(500,535,`{{ej.:}}   log_4 2 = ${fr('log_2 2','log_2 4')} = ${fr('1','2')}`,5,'s')}`,
+beats:[
+`Estas son las propiedades que vas a usar. A la izquierda las de la exponencial, que ya conoces de potencias. A la derecha las del logaritmo, que son las mismas pero leídas al revés.`,
+`Producto: a a la x por a a la y es a a la x más y. Por eso el logaritmo de un producto es la suma de los logaritmos.`,
+`Cociente: se restan los exponentes, y el logaritmo de un cociente es la resta de los logaritmos.`,
+`Potencia: a a la x, todo a la y, es a a la x por y. Y el logaritmo de x a la y es y por logaritmo de x: el exponente baja multiplicando. Esta es la más útil para despejar.`,
+`Inversas: a elevado a logaritmo en base a de x es x, y logaritmo en base a de a a la x es x. Una deshace a la otra.`,
+`Y el cambio de base: logaritmo en base a de x es logaritmo en base b de x, dividido logaritmo en base b de a, con la base b que tú quieras. Ejemplo: logaritmo en base 4 de 2 es log en base 2 de 2, que es 1, dividido log en base 2 de 4, que es 2. O sea, un medio. Lo vamos a necesitar en el taller 7.`]
+});
+
+S({title:'El dominio cuando hay logaritmos',
+html:`
+${Q(90,180,'log_a(A)  {{existe solo si}}  A > 0',0,'s box')}
+${Q(90,262,'f(x) = log_2(x^2 − 3x − 4)',1,'s')}
+${Q(90,325,'x^2 − 3x − 4 > 0   ⇔   (x − 4)(x + 1) > 0',1,'s')}
+${svg(`<g data-b="2">
+<line x1="270" y1="430" x2="1150" y2="430" class="ln"/>
+<line x1="480" y1="418" x2="480" y2="442" class="ln"/><line x1="800" y1="418" x2="800" y2="442" class="ln"/>
+${tx(480,405,'−1',null,'lab')}${tx(800,405,'4',null,'lab')}
+<line x1="480" y1="442" x2="480" y2="595" class="ln2 dashl"/><line x1="800" y1="442" x2="800" y2="595" class="ln2 dashl"/>
+${tx(110,470,'x + 1',null,'lab','start')}${tx(110,515,'x − 4',null,'lab','start')}${tx(110,570,'producto',null,'sm','start')}
+${[[375,'−','−','+'],[640,'+','−','−'],[975,'+','+','+']].map(([x,a,b,c])=>tx(x,470,a,null,'lab')+tx(x,515,b,null,'lab')+tc(x,570,c,c==='+'?'f4':'f6',null,'middle',34)).join('')}
+</g>`)}
+${Q(90,622,'x < −1   {{o}}   x > 4',3,'s box')}
+${N(500,628,700,'Si la base tiene <i>x</i>: argumento > 0, base > 0, base ≠ 1.',3)}`,
+beats:[
+`Antes de resolver cualquier cosa con logaritmos, se calcula el dominio. La regla: lo que está adentro del logaritmo, el argumento, tiene que ser estrictamente mayor que cero.`,
+`Ejemplo: f de x igual a logaritmo en base 2 de, x al cuadrado menos 3 x menos 4. Necesitamos x al cuadrado menos 3 x menos 4 mayor que cero. Factorizamos: buscamos dos números que multiplicados den menos 4 y sumados den menos 3: menos 4 y 1. Queda x menos 4 por x más 1, mayor que cero.`,
+`Tabla de signos. Los puntos críticos son menos 1 y 4. A la izquierda de menos 1, los dos factores son negativos, y el producto es positivo. Entre menos 1 y 4, uno es positivo y el otro negativo: producto negativo. A la derecha de 4, los dos son positivos: producto positivo.`,
+`Queremos positivo: x menor que menos 1, o x mayor que 4. Y si la base del logaritmo también tiene x, se piden tres cosas: argumento mayor que cero, base mayor que cero, y base distinta de uno.`]
+});
+
+S({title:'Ecuaciones exponenciales',
+html:`
+${P(90,178,'Técnica 1: igualar bases','acc',0,'nc')}
+${Q(90,226,'2^{x + 1} = 8 = 2^3   ⇒   x + 1 = 3   ⇒   x = 2',0,'s')}
+${P(90,308,'Técnica 2: cambio de variable','acc',1,'nc')}
+${Q(500,302,'9^{x} + 3^{x} = 42   {{(Guía 11)}}',1,'s')}
+${Q(90,370,'9^{x} = (3^2)^{x} = (3^{x})^2 = u^2,        u = 3^{x} > 0',2,'s')}
+${Q(90,437,'u^2 + u − 42 = 0   ⇒   (u + 7)(u − 6) = 0',3,'s')}
+${Q(90,504,'u = 6  ✓          u = −7  ✕   {{(una exponencial nunca es negativa)}}',4,'s')}
+${Q(90,585,'3^{x} = 6   ⇒   x = log_3 6',4,'s box')}`,
+beats:[
+`Ahora, ecuaciones. Técnica uno: igualar bases. Si logras escribir los dos lados como potencias de la misma base, igualas los exponentes. Por ejemplo, 2 a la x más 1 igual a 8. Como 8 es 2 al cubo, x más 1 igual a 3, y x es 2. Esto funciona porque la exponencial es inyectiva.`,
+`Técnica dos: cambio de variable. Sirve cuando aparece la misma base con un exponente y con el doble de ese exponente. Ejemplo de la guía 11: 9 a la x más 3 a la x igual a 42.`,
+`El truco: 9 es 3 al cuadrado, así que 9 a la x es 3 a la 2 x, que es 3 a la x, al cuadrado. Llamamos u a 3 a la x. La ecuación queda u al cuadrado más u igual a 42, o sea u al cuadrado más u menos 42 igual a cero.`,
+`Factorizamos: dos números que multiplicados den menos 42 y sumados den 1: 7 y menos 6. Queda u más 7 por u menos 6 igual a cero. Entonces u es 6, o u es menos 7.`,
+`Pero u es 3 a la x, y una exponencial nunca es negativa. Así que u igual a menos 7 se descarta. Queda 3 a la x igual a 6, y aplicando logaritmo en base 3: x igual a logaritmo en base 3 de 6.`]
+});
+
+S({title:'Taller 7, ejercicio 1: ecuación logarítmica',
+html:`
+${Q(90,175,'log_4(2) · log_2(x^2 + 1) = log_4(x + 1)',0,'s box')}
+${P(90,256,'Dominio','acc',1)}${Q(240,250,'x + 1 > 0   ⇒   x > −1',1,'s')}
+${Q(90,322,`log_4 2 = ${fr('1','2')},          log_4(x + 1) = ${fr('log_2(x + 1)','log_2 4')} = ${fr('log_2(x + 1)','2')}`,2,'s')}
+${Q(90,428,`${fr('1','2')} log_2(x^2 + 1) = ${fr('1','2')} log_2(x + 1)   ⇒   log_2(x^2 + 1) = log_2(x + 1)`,3,'s')}
+${Q(90,520,'x^2 + 1 = x + 1   ⇒   x(x − 1) = 0   ⇒   x = 0  {{o}}  x = 1',4,'s')}
+${Q(90,598,'0 > −1  ✓      1 > −1  ✓      →   x = 0,  x = 1',5,'s box')}`,
+beats:[
+`Ejercicio 1 del taller 7. Resolver: logaritmo en base 4 de 2, por logaritmo en base 2 de, x al cuadrado más 1, igual a logaritmo en base 4 de, x más 1.`,
+`Siempre, primero el dominio. Los argumentos tienen que ser positivos: x al cuadrado más 1 es positivo siempre, y x más 1 mayor que cero da x mayor que menos 1. El dominio es x mayor que menos 1.`,
+`El problema es que hay dos bases distintas, 4 y 2. Las pasamos todas a base 2 con cambio de base. Logaritmo en base 4 de 2 es un medio, como vimos. Y logaritmo en base 4 de x más 1 es logaritmo en base 2 de x más 1, dividido logaritmo en base 2 de 4, que es 2.`,
+`La ecuación queda: un medio por log en base 2 de x al cuadrado más 1, igual a un medio por log en base 2 de x más 1. Multiplicamos por 2 y queda: log en base 2 de x al cuadrado más 1, igual a log en base 2 de x más 1.`,
+`Como el logaritmo es inyectivo, si los logaritmos son iguales, los argumentos son iguales: x al cuadrado más 1 igual a x más 1. Restamos: x al cuadrado menos x igual a cero, o sea x por x menos 1 igual a cero. x es cero, o x es uno.`,
+`Último paso, que nunca se salta: revisar el dominio. Cero y uno son mayores que menos 1, así que las dos son soluciones.`]
+});
+
+S({title:'La regla de las inecuaciones',
+html:`
+<div class="panel" style="left:90px;top:175px;width:520px;height:160px" data-b="0"></div>
+<div class="panel" style="left:670px;top:175px;width:520px;height:160px" data-b="0"></div>
+${P(115,195,'Base > 1','f4',0)}${N(115,245,470,'La desigualdad <b>se mantiene</b>.',0)}
+${P(695,195,'0 < base < 1','f6',0)}${N(695,245,470,'La desigualdad <b>se invierte</b>.',0)}
+${N(115,285,470,'porque <i>a<sup>x</sup></i> y log<sub><i>a</i></sub> son crecientes',1)}
+${N(695,285,470,'porque <i>a<sup>x</sup></i> y log<sub><i>a</i></sub> son decrecientes',1)}
+${Q(90,378,`(${fr('1','2')})^{x^2 + 4x} < 2^{−5}   ⇒   2^{−(x^2 + 4x)} < 2^{−5}`,2,'s')}
+${Q(90,475,'{{base 2 > 1:}}   −x^2 − 4x < −5',3,'s')}
+${Q(90,545,'{{(× −1)}}   x^2 + 4x − 5 > 0   ⇒   (x + 5)(x − 1) > 0',4,'s')}
+${Q(90,615,'x < −5   {{o}}   x > 1',4,'s box')}`,
+beats:[
+`Ahora inecuaciones, y aquí está la regla más importante del capítulo. Cuando aplicas una exponencial o un logaritmo a ambos lados de una desigualdad: si la base es mayor que 1, la desigualdad se mantiene. Si la base está entre cero y uno, la desigualdad se invierte.`,
+`¿Por qué? Porque con base mayor que 1 estas funciones son crecientes, y mantienen el orden. Y con base entre cero y uno son decrecientes, e invierten el orden. Es exactamente lo que vimos en el capítulo dos.`,
+`Ejemplo de la guía 11: un medio elevado a, x al cuadrado más 4 x, menor que 2 a la menos 5. Primero, misma base. Un medio es 2 a la menos 1, así que el lado izquierdo es 2 a la menos, x al cuadrado más 4 x.`,
+`Ahora la base es 2, mayor que 1: comparamos exponentes manteniendo el sentido. Menos x al cuadrado menos 4 x, menor que menos 5.`,
+`Multiplicamos por menos 1, y eso sí invierte: x al cuadrado más 4 x mayor que 5. Pasamos el 5: x al cuadrado más 4 x menos 5 mayor que cero. Factorizamos: x más 5, por x menos 1, mayor que cero. Con tabla de signos: x menor que menos 5, o x mayor que 1.`]
+});
+
+S({title:'Inecuaciones con logaritmo',
+html:`
+${svg(ln(630,180,630,640,0,'ln2'))}
+${P(90,175,'Guía 11','f2',0,'nc')}
+${Q(90,222,'log_{1/4}(5 − x) < 1',0,'s')}
+${Q(90,290,'{{Dominio:}}  5 − x > 0  ⇒  x < 5',0,'xs')}
+${Q(90,345,'{{base}}  ¼ < 1  ⇒  {{se invierte}}',1,'xs')}
+${Q(90,398,`5 − x > (${fr('1','4')})^1 = ${fr('1','4')}`,1,'xs')}
+${Q(90,478,`x < ${fr('19','4')}   {{y}}   x < 5`,2,'xs')}
+${Q(90,560,`]−∞, ${fr('19','4')}[`,2,'s box')}
+${P(660,175,'Taller 7, ej. 2','f2',3,'nc')}
+${Q(660,222,'log_4(x^4) < log_2(x^2 + 1)',3,'s')}
+${Q(660,290,'{{Dominio:}}  x ≠ 0',3,'xs')}
+${Q(660,340,`${fr('log_2(x^4)','2')} < log_2(x^2 + 1)`,4,'xs')}
+${Q(660,425,'log_2(x^4) < log_2((x^2 + 1)^2)',4,'xs')}
+${Q(660,488,'{{base 2:}}  x^4 < x^4 + 2x^2 + 1  ⇔  0 < 2x^2 + 1',5,'xs')}
+${Q(660,560,'ℝ ∖ {0}',5,'s box')}`,
+beats:[
+`Ejemplo con logaritmo, de la guía 11: logaritmo en base un cuarto de, 5 menos x, menor que 1. Paso uno, el dominio: 5 menos x mayor que cero, o sea x menor que 5.`,
+`Paso dos: para sacar el logaritmo, aplicamos la exponencial en base un cuarto a ambos lados. La base es un cuarto, menor que 1: la desigualdad se invierte. Queda 5 menos x mayor que un cuarto elevado a uno, que es un cuarto.`,
+`Despejamos: x menor que 5 menos un cuarto, que es 19 cuartos. Intersectamos con el dominio, x menor que 5. Como 19 cuartos es 4 coma 75, menor que 5, la solución es de menos infinito a 19 cuartos.`,
+`Ahora el taller 7, ejercicio 2: logaritmo en base 4 de x a la cuarta, menor que logaritmo en base 2 de, x al cuadrado más 1. Dominio: x a la cuarta tiene que ser positivo, y eso solo falla en x igual a cero. Dominio: R menos el cero.`,
+`Pasamos a base 2: log en base 4 de x a la cuarta es log en base 2 de x a la cuarta, dividido 2. Multiplicamos por 2: log en base 2 de x a la cuarta, menor que 2 por log en base 2 de, x al cuadrado más 1. Y ese 2 sube como exponente: log en base 2 de, x al cuadrado más 1, al cuadrado.`,
+`Base 2, mayor que 1: se mantiene. x a la cuarta menor que x a la cuarta más 2 x al cuadrado más 1. Se cancela x a la cuarta: cero menor que 2 x al cuadrado más 1. Eso es verdad para todo x. Así que la solución es todo el dominio: R menos el cero.`]
+});
+
+/* ===================== MODELOS ===================== */
+CH('Modelos exponenciales','Clase 16','Capítulo seis: modelos exponenciales. Problemas con contexto, donde todo lo anterior se usa de una vez.');
+
+{const g=G(800,460,36,2.6);
+S({title:'Los modelos y el método',
+html:`${svg(`
+${axes(g,0,10,-3,100,2,{xl:'t',yl:'T',yt:[20,90]})}
+${dl(g.X(0),g.Y(20),g.X(10),g.Y(20),2,'f4')}${tc(g.X(10),g.Y(20)+22,'ambiente','f4',2,'end',22)}
+${cv(g,t=>20+70*Math.exp(-.35*t),0,10,'f1',2)}${fdot(g.X(0),g.Y(90),'f1',2)}`)}
+${Q(90,175,'P(t) = P_0 · 2^{t/D}',0,'s')}
+${N(90,225,640,'Duplicación: se multiplica por 2 cada <i>D</i>.',0)}
+${Q(90,285,'P(t) = P_0 · e^{<i>kt</i>}',1,'s')}
+${N(90,335,640,'Crecimiento continuo (base <i>e</i>).',1)}
+${Q(90,395,'T(t) = T_m + (T_0 − T_m) · e^{−<i>kt</i>}',2,'s')}
+${N(90,445,640,'Newton: <i>T<sub>m</sub></i> medio, <i>T</i><sub>0</sub> inicial, <i>k</i> > 0.',2)}
+${N(90,525,1100,'<b>Método:</b> identifica <i>t</i> y su unidad → reemplaza los datos → deja la exponencial <b>sola</b> → aplica ln. Si divides por un negativo, como −<i>k</i>, la desigualdad se invierte.',3)}`,
+beats:[
+`Los modelos que aparecen en la clase 16. Uno: duplicación. P de t es P cero por 2 elevado a t partido D, donde P cero es la cantidad inicial y D el tiempo que tarda en duplicarse. Cada vez que pasa un tiempo D, la cantidad se multiplica por 2.`,
+`Dos: crecimiento continuo, P de t igual a P cero por e a la k t. Es lo mismo, pero con base e.`,
+`Tres: la ley de enfriamiento de Newton. T de t es T m, más, T cero menos T m, por e a la menos k t. T m es la temperatura del medio, del ambiente; T cero es la temperatura inicial; y k es un número positivo. Con el tiempo, la exponencial se va a cero y la temperatura se acerca a la del ambiente. Mira la curva.`,
+`El método siempre es el mismo. Identifica qué es t y en qué unidad. Reemplaza los datos en el modelo para obtener ecuaciones. Deja la exponencial sola a un lado. Y aplica logaritmo para bajar el exponente. Si te preguntan cuándo será mayor o menor que algo, es una inecuación: como e a la x y ele ene son crecientes, el sentido se mantiene. Pero ojo cuando divides por un negativo, como menos k.`]
+});}
+
+{const g=G(800,600,30,7.5);
+S({title:'Bacterias que se duplican (clase 16)',
+html:`${svg(`
+${axes(g,0,12,-1,48,0,{xl:'t',yl:'P',xt:[3,6,9,12],yt:[6,24,48]})}
+${cv(g,t=>3*Math.pow(2,t/3),0,12,'f1',0)}
+${dl(g.X(3),g.Y(6),g.X(3),g.Y(0),1)}${fdot(g.X(3),g.Y(6),'f5',1)}
+${dl(g.X(9),g.Y(24),g.X(9),g.Y(0),2)}${dl(g.X(0),g.Y(24),g.X(9),g.Y(24),2)}${fdot(g.X(9),g.Y(24),'f5',2)}`)}
+${N(90,170,700,'<b>Clase 16.</b> Se duplican cada 3 h; a las 3 h hay 6.',0)}
+${Q(90,232,'P(t) = P_0 · 2^{t/3}',0,'s')}
+${Q(90,300,'P(3) = P_0 · 2 = 6   ⇒   P_0 = 3',1,'s')}
+${Q(90,366,'P(9) = 3 · 2^{9/3} = 3 · 2^3 = 24',2,'s')}
+${Q(90,436,'3 · 2^{t/3} ≥ 51000   ⇒   2^{t/3} ≥ 17000',3,'s')}
+${Q(90,506,'t/3 ≥ log_2(17000) ≈ 14   ⇒   t ≥ 42 [[h]]',4,'s box')}
+${P(90,590,'Base 2 > 1: el sentido se mantiene','f4',4,'nc')}`,
+beats:[
+`Ejemplo de la clase 16. Una población de bacterias se duplica cada 3 horas, y luego de 3 horas hay 6 bacterias. El tiempo se mide en horas y D es 3, así que el modelo es P de t igual a P cero por 2 elevado a t partido 3.`,
+`Parte a: ¿cuántas había al inicio? Evaluamos en t igual a 3: 2 elevado a 3 partido 3 es 2 a la 1, o sea 2. Entonces P de 3 es 2 P cero, y eso vale 6. P cero es 3.`,
+`Parte b: después de 9 horas. P de 9 es 3 por 2 elevado a 9 partido 3, o sea 3 por 2 al cubo: 3 por 8, 24 bacterias.`,
+`Parte c: ¿cuándo habrá al menos 51 mil? Planteamos la inecuación: 3 por 2 elevado a t partido 3, mayor o igual a 51 mil. Dividimos por 3: 2 elevado a t partido 3, mayor o igual a 17 mil.`,
+`Aplicamos logaritmo en base 2, que tiene base mayor que 1: se mantiene el sentido. t partido 3 mayor o igual a log en base 2 de 17 mil, que el enunciado dice que es aproximadamente 14. Multiplicamos por 3: t mayor o igual a 42. Después de unas 42 horas.`]
+});}
+
+{const g=G(800,600,8,4.5),K=Math.log(1.25)/5;
+S({title:'El café que se enfría (clase 16)',
+html:`${svg(`
+${axes(g,0,50,-2,75,0,{xl:'t',yl:'T',xt:[5],yt:[20,30,60,70]})}
+${dl(g.X(0),g.Y(20),g.X(50),g.Y(20),0,'f4')}${tc(g.X(50),g.Y(20)+22,'ambiente','f4',0,'end',22)}
+${cv(g,t=>20+50*Math.exp(-K*t),0,50,'f1',0)}
+${fdot(g.X(5),g.Y(60),'f5',1)}
+${dl(g.X(0),g.Y(30),g.X(50),g.Y(30),3,'f6')}
+${dl(g.X(36),g.Y(30),g.X(36),g.Y(0),4)}${fdot(g.X(36),g.Y(30),'f6',4)}${tc(g.X(36),g.Y(0)+24,'36','f6',4,'middle',22)}`)}
+${N(90,170,700,'<b>Clase 16.</b> Café a 70 °C en pieza a 20 °C; a los 5 min: 60 °C.',0)}
+${Q(90,236,'T(t) = 20 + 50 e^{−<i>Kt</i>}',0,'s')}
+${Q(90,300,`60 = 20 + 50 e^{−5<i>K</i>}   ⇒   e^{−5<i>K</i>} = ${fr('4','5')}`,1,'s')}
+${Q(90,390,`−5K = ln ${fr('4','5')}   ⇒   K = −${fr('1','5')} ln ${fr('4','5')} > 0`,2,'s')}
+${Q(90,480,`50 e^{−<i>Kt</i>} < 10   ⇒   −<i>Kt</i> < ln ${fr('1','5')}`,3,'s')}
+${Q(90,570,`t > 5 · ${fr('ln(1/5)','ln(4/5)')} ≈ 5 · 7,2 = 36 [[min]]`,4,'s box')}`,
+beats:[
+`Segundo ejemplo de la clase: un café a 70 grados se deja en una pieza a 20 grados. A los 5 minutos está a 60. Con Newton: T m es 20, T cero es 70, así que T de t es 20 más 50 por e a la menos K t.`,
+`Parte a: encontrar K. Reemplazamos t igual a 5: 60 igual a 20 más 50 e a la menos 5 K. Restamos 20: 40 igual a 50 e a la menos 5 K. Dividimos por 50: e a la menos 5 K igual a cuatro quintos.`,
+`Aplicamos ele ene a ambos lados para bajar el exponente: menos 5 K igual a ele ene de cuatro quintos. Dividimos por menos 5: K igual a menos un quinto por ele ene de cuatro quintos. Y es positivo, porque el logaritmo de un número menor que 1 es negativo.`,
+`Parte b: ¿cuándo estará bajo 30 grados? 20 más 50 e a la menos K t, menor que 30. Restamos 20 y dividimos por 50: e a la menos K t, menor que un quinto. Aplicamos ele ene, que es creciente: menos K t, menor que ele ene de un quinto.`,
+`Ahora dividimos por menos K, que es negativo: la desigualdad se invierte. t mayor que menos ele ene de un quinto, partido K. Reemplazando K, queda t mayor que 5 por ele ene de un quinto sobre ele ene de cuatro quintos, que el enunciado da como 7 coma 2. t mayor que 36: después de unos 36 minutos.`]
+});}
+
+S({title:'Taller 7, ejercicio 3: sin conocer el ambiente',
+html:`
+${N(90,170,1100,'<b>Taller 7.</b> Agua a 100 °C; a 1 min: 66 °C; a 2 min: 44 °C. ¿Temperatura exterior?',0)}
+${Q(90,238,'66 − T_a = (100 − T_a) e^{−<i>k</i>}             {{(1)}}',1,'s')}
+${Q(90,296,'44 − T_a = (100 − T_a) e^{−<i>k</i>} e^{−<i>k</i>}       {{(2)}}',1,'s')}
+${Q(90,372,`{{(2)/(1):}}   e^{−<i>k</i>} = ${fr('44 − T_a','66 − T_a')}         {{(1):}}   e^{−<i>k</i>} = ${fr('66 − T_a','100 − T_a')}`,2,'s')}
+${Q(90,478,'(44 − T_a)(100 − T_a) = (66 − T_a)^2',3,'s')}
+${Q(90,542,'4400 − 144T_a + T_a^2 = 4356 − 132T_a + T_a^2',4,'s')}
+${Q(90,610,'44 = 12 T_a   ⇒   T_a ≈ 3,7 °C ≈ 4 °C',4,'s box')}`,
+beats:[
+`Taller 7, ejercicio 3. Una taza de agua hirviendo, a 100 grados, se deja afuera. Un minuto después está a 66 grados, y otro minuto después, a 44. ¿Cuál es la temperatura exterior? Aquí la gracia es que no conocemos T a, la del ambiente, ni k. Dos incógnitas, así que necesitamos dos ecuaciones.`,
+`Usamos los dos datos. En t igual a 1: 66 igual a T a más, 100 menos T a, por e a la menos k. En t igual a 2: 44 igual a T a más, 100 menos T a, por e a la menos 2 k. Pasamos T a a la izquierda en las dos. Y en la segunda escribimos e a la menos 2 k como e a la menos k por e a la menos k.`,
+`Truco uno: dividimos la segunda ecuación por la primera. Se cancelan el 100 menos T a y un e a la menos k. Queda: e a la menos k igual a 44 menos T a, sobre 66 menos T a. Y de la primera, despejando: e a la menos k es 66 menos T a, sobre 100 menos T a.`,
+`Truco dos: igualamos las dos expresiones de e a la menos k, y multiplicamos cruzado: 44 menos T a, por 100 menos T a, igual a, 66 menos T a, al cuadrado.`,
+`Desarrollamos. Izquierda: 4400 menos 144 T a más T a al cuadrado. Derecha: 4356 menos 132 T a más T a al cuadrado. El T a al cuadrado se cancela, y eso es lo que salva el ejercicio. Queda 44 igual a 12 T a. T a es 44 partido 12, unos 3 coma 7 grados. Afuera hacía alrededor de 4 grados.`]
+});
+
+S({title:'Taller 7, ejercicio 4: encontrar k',
+html:`
+${N(90,170,1100,'<b>Taller 7.</b> Objeto a 150 °C; afuera hay 35 °C. A las 12:15 está a 120 °C y a las 12:20 a 90 °C. &nbsp;ln 11 ≈ 2,4 · ln 17 ≈ 2,8 · ln 23 ≈ 3,1',0)}
+${Q(90,270,'T(t) = 35 + 115 e^{−<i>kt</i>}',1,'s')}
+${Q(90,342,`120:   e^{−<i>k</i>t_1} = ${fr('85','115')} = ${fr('17','23')}`,2,'s')}
+${Q(640,342,`90:   e^{−<i>k</i>t_2} = ${fr('55','115')} = ${fr('11','23')}`,2,'s')}
+${Q(90,455,`t_2 = t_1 + 5   ⇒   ${fr('e^{−<i>k</i>t_2}','e^{−<i>k</i>t_1}')} = e^{−5<i>k</i>} = ${fr('11','17')}`,3,'s')}
+${Q(90,565,'5k = ln 17 − ln 11 ≈ 2,8 − 2,4 = 0,4   ⇒   k ≈ 0,08',4,'s box')}`,
+beats:[
+`Último de modelos: taller 7, ejercicio 4. Un objeto a 150 grados se pone afuera, donde hace 35. A las 12 y 15 está a 120 grados, y a las 12 y 20, a 90. ¿A qué hora se puso afuera? ¿Y cuándo estará a 40 grados? Nos dan logaritmos aproximados de 11, 17 y 23.`,
+`Modelo: T de t igual a 35 más, 150 menos 35, por e a la menos k t. O sea 35 más 115 e a la menos k t. El problema: no sabemos cuánto tiempo había pasado a las 12 y 15. Llamemos t uno a ese tiempo, y t dos al de las 12 y 20.`,
+`Con 120 grados: 120 menos 35 es 85, así que e a la menos k t uno es 85 partido 115, que simplificado por 5 es 17 partido 23. Con 90 grados: 90 menos 35 es 55, y e a la menos k t dos es 55 partido 115, o sea 11 partido 23.`,
+`Lo que sí sabemos: entre las dos mediciones pasaron 5 minutos, así que t dos es t uno más 5. Si dividimos las dos exponenciales, los exponentes se restan y el tiempo desconocido desaparece: e a la menos k t dos, sobre e a la menos k t uno, es e a la menos 5 k. Y eso vale 11 veintitresavos partido 17 veintitresavos: 11 partido 17.`,
+`Aplicamos ele ene: menos 5 k igual a ele ene de 11 partido 17. Cambiamos el signo dando vuelta la fracción: 5 k igual a ele ene de 17 menos ele ene de 11, aproximadamente 2 coma 8 menos 2 coma 4, que es 0 coma 4. Entonces k es aproximadamente 0 coma 08.`]
+});
+
+{const X=m=>100+m*26;
+S({title:'Taller 7, ejercicio 4: las horas',
+html:`
+${Q(90,178,`0,08 t_1 = ln ${fr('23','17')} ≈ 3,1 − 2,8 = 0,3   ⇒   t_1 ≈ 3,75 [[min]]`,0,'s')}
+${N(90,268,1100,'3,75 min = 3 min 45 s antes de las 12:15 → se colocó cerca de las <b>12:11</b>.',1)}
+${Q(90,336,`40 = 35 + 115 e^{−0,08t}   ⇒   e^{−0,08t} = ${fr('1','23')}   ⇒   0,08 t = ln 23 ≈ 3,1`,2,'s')}
+${Q(90,428,'t ≈ 3,1 / 0,08 = 38,75 [[min]]',2,'s')}
+${svg(`
+<g data-b="1"><line x1="${X(0)}" y1="560" x2="${X(41)}" y2="560" class="ln"/>
+${[[0,'12:11','150 °C'],[3.75,'12:15','120 °C'],[8.75,'12:20','90 °C']].map(([m,h,t])=>`<line x1="${X(m)}" y1="548" x2="${X(m)}" y2="572" class="ln"/>`+tx(X(m),528,h,null,'sm')+tc(X(m),598,t,'f5',null,'middle',20)).join('')}</g>
+<g data-b="3"><line x1="${X(38.75)}" y1="544" x2="${X(38.75)}" y2="576" style="stroke:var(--acc);stroke-width:4"/>${tc(X(38.75),524,'12:50','acc',null,'middle',24)}${tc(X(38.75),598,'40 °C','f5',null,'middle',20)}
+${tc((X(0)+X(38.75))/2,500,'38 min 45 s desde que se colocó','acc',null,'middle',22)}</g>`)}
+${P(90,630,'¿Desde cuándo cuenta tu t?','f5',3,'nc')}`,
+beats:[
+`Ahora t uno. De e a la menos k t uno igual a 17 partido 23, con ele ene y dando vuelta la fracción: 0 coma 08 t uno igual a ele ene de 23 menos ele ene de 17, unos 3 coma 1 menos 2 coma 8, o sea 0 coma 3. t uno es 0 coma 3 partido 0 coma 08: 3 coma 75 minutos.`,
+`3 coma 75 minutos son 3 minutos y 45 segundos. Eso es lo que llevaba afuera a las 12 y 15. Así que se colocó afuera alrededor de las 12 y 11.`,
+`Parte b: 40 grados. 40 igual a 35 más 115 e a la menos 0 coma 08 t. Restamos 35: 5 igual a 115 por la exponencial, así que e a la menos 0 coma 08 t es 5 partido 115, un veintitresavo. Con ele ene: 0 coma 08 t igual a ele ene de 23, unos 3 coma 1. t es 3 coma 1 partido 0 coma 08: 38 coma 75 minutos.`,
+`Cuidado con la pregunta: esos 38 coma 75 minutos se cuentan desde que se puso afuera, no desde las 12 y 15. 12 y 11, más 38 minutos y 45 segundos: aproximadamente las 12 y 50. En problemas con horas, pregúntate siempre desde cuándo cuenta tu t.`]
+});}
+
+/* ===================== TRIGONOMÉTRICAS ===================== */
+CH('Funciones trigonométricas','Clase 17','Capítulo siete: seno, coseno y las funciones sinusoidales. Todo sale del círculo unitario.');
+
+{const C=[280,450],R=150,W0=540,WL=620;
+S({title:'Seno y coseno desde el círculo',
+html:`${svg(`
+<g data-b="0">${cir(C[0],C[1],R,null,'ln2')}<line x1="${C[0]-R-25}" y1="${C[1]}" x2="${C[0]+R+25}" y2="${C[1]}" class="ln2"/><line x1="${C[0]}" y1="${C[1]-R-25}" x2="${C[0]}" y2="${C[1]+R+25}" class="ln2"/>
+<line id="c_r" class="ln" style="stroke:var(--line);stroke-width:3"/></g>
+<g data-b="1"><line id="c_c" style="stroke:var(--f5);stroke-width:5;stroke-linecap:round"/><line id="c_s" style="stroke:var(--f1);stroke-width:5;stroke-linecap:round"/></g>
+<g data-b="2"><line x1="${W0}" y1="${C[1]}" x2="${W0+WL+30}" y2="${C[1]}" class="ln2"/>
+${[[.5,'π/2'],[1,'π'],[1.5,'3π/2'],[2,'2π']].map(([k,l])=>`<line x1="${W0+k/2*WL}" y1="${C[1]-6}" x2="${W0+k/2*WL}" y2="${C[1]+6}" class="ax"/>`+tx(W0+k/2*WL,C[1]+R+28,l,null,'sm')).join('')}
+${pth(fd(G(W0,C[1],WL/(2*PI),R),Math.sin,0,2*PI),null,'ln','stroke:var(--f1);stroke-width:3.5;opacity:.85')}
+<line id="c_h" class="ln2 dashl"/><circle id="c_q" r="9" style="fill:var(--f1)"/></g>
+<circle id="c_p" r="9" style="fill:var(--ink)"/>`)}
+${Q(560,170,'<span style="color:var(--f5)">cos x</span>{{: horizontal}}       <span style="color:var(--f1)">sen x</span>{{: vertical}}',1,'s')}
+${Q(560,228,'sen^2 x + cos^2 x = 1',1,'xs')}
+${Q(880,228,'f(x + 2π) = f(x)',3,'xs')}`,
+beats:[
+`Empecemos con el círculo unitario: un círculo de radio 1 centrado en el origen. Un punto lo recorre, y el ángulo x se mide desde el eje horizontal, en radianes. Una vuelta completa son 2 pi radianes.`,
+`El coseno de x es la coordenada horizontal del punto, en amarillo, y el seno de x es la coordenada vertical, en morado. Por eso los dos están siempre entre menos 1 y 1. Y por Pitágoras, seno al cuadrado más coseno al cuadrado es siempre 1.`,
+`Si vamos anotando la altura del punto mientras gira, se dibuja la onda del seno. Empieza en cero, sube a 1 en pi medios, vuelve a cero en pi, baja a menos 1 en 3 pi medios, y vuelve a cero en 2 pi. Después se repite.`,
+`Que se repita se llama ser periódica: existe un número P tal que f de x más P es igual a f de x para todo x. El menor P positivo es el período. Para seno y coseno, el período es 2 pi.`],
+loop(st,r){const a=(st*.6)%(2*PI),px=C[0]+R*Math.cos(a),py=C[1]-R*Math.sin(a),qx=W0+a/(2*PI)*WL;
+  const set=(id,a1,b1,a2,b2)=>{const e=r.querySelector('#'+id);if(e){e.setAttribute('x1',a1);e.setAttribute('y1',b1);e.setAttribute('x2',a2);e.setAttribute('y2',b2)}};
+  set('c_r',C[0],C[1],px,py);set('c_c',C[0],C[1],px,C[1]);set('c_s',px,C[1],px,py);set('c_h',px,py,qx,py);setT(r,'c_p',px,py);setT(r,'c_q',qx,py)}
+});}
+
+S({title:'Las seis funciones',
+html:`
+${TB(90,178,[200,320,300,170],[
+ {h:1,c:['Función','Dominio','Recorrido','Período'],b:0},
+ {c:['sen x','ℝ','[−1, 1]','2π'],b:0},
+ {c:['cos x','ℝ','[−1, 1]','2π'],b:0},
+ {c:['tan x','ℝ ∖ {π/2 + kπ}','ℝ','π'],b:1},
+ {c:['csc x','ℝ ∖ {kπ}','ℝ ∖ ]−1, 1[','2π'],b:2},
+ {c:['sec x','ℝ ∖ {π/2 + kπ}','ℝ ∖ ]−1, 1[','2π'],b:2},
+ {c:['ctg x','ℝ ∖ {kπ}','ℝ','π'],b:2}])}
+${Q(90,600,`tan x = ${fr('sen x','cos x')}     csc x = ${fr('1','sen x')}     sec x = ${fr('1','cos x')}     ctg x = ${fr('1','tan x')}`,2,'xs')}`,
+beats:[
+`Estas son las seis funciones trigonométricas, con su dominio, su recorrido y su período. Seno y coseno: dominio todo R, recorrido de menos 1 a 1, período 2 pi.`,
+`Tangente es seno partido coseno. No existe donde el coseno es cero, o sea en pi medios más k pi. Su recorrido es todo R y su período es pi, no 2 pi.`,
+`Las otras tres son recíprocas. Cosecante es uno partido seno, secante es uno partido coseno, y cotangente es uno partido tangente. Cosecante y secante nunca están estrictamente entre menos 1 y 1, porque son uno partido algo que está entre menos 1 y 1. Y la cotangente, igual que la tangente, tiene período pi.`]
+});
+
+{const g=G(150,500,95,55);
+const FS=['sen x','2 sen x','2 sen(2<i>x</i>)','2 sen(2<i>x</i> − π/2)'],PR=[[1,1,0],[2,1,0],[2,2,0],[2,2,-PI/2]];
+S({title:'Funciones sinusoidales',
+html:`${svg(`
+${axes(g,-0.5,10.5,-2.4,2.4,0,{xt:[[PI/2,'π/2'],[PI,'π'],[3*PI/2,'3π/2'],[2*PI,'2π'],[3*PI,'3π']],yt:[[1,'1'],[2,'2'],[-1,'−1'],[-2,'−2']],xtd:22})}
+${cv(g,Math.sin,-0.5,10.3,'line',0,{dash:1,w:2.5,n:400})}
+<path id="sw" class="ln" style="stroke:var(--f1);stroke-width:4.5"/>
+<g data-b="3">${dl(g.X(PI/4),g.Y(2.3),g.X(PI/4),g.Y(-2.3),null,'f3')}${tc(g.X(PI/4)+10,g.Y(2.3),'π/4','f3',null,'start',22)}</g>`)}
+${Q(90,170,'f(x) = A sen(B<i>x</i> + C)',0,'l')}
+<div class="eq s" id="curf" style="left:90px;top:252px;color:var(--f1)"></div>
+${P(720,176,'Amplitud = |A|','f1',1,'nc')}
+${P(720,228,'Período = 2π / |B|','f2',2,'nc')}
+${P(720,280,'Fase = −C / B','f3',3,'nc')}`,
+beats:[
+`Una función sinusoidal es de la forma A por seno de, B x más C. O lo mismo con coseno. Son ondas como el seno, pero estiradas, apretadas o corridas. Partimos con seno de x, que es A igual a 1, B igual a 1 y C igual a cero.`,
+`A controla la altura: la amplitud es el valor absoluto de A. Si A es 2, la onda llega hasta 2 y baja hasta menos 2. En general, la amplitud es el máximo menos el mínimo, dividido por 2.`,
+`B controla qué tan apretada está la onda. El período es 2 pi partido el valor absoluto de B. Con B igual a 2, el período es 2 pi partido 2, o sea pi: la onda se repite el doble de rápido.`,
+`C corre la onda hacia los lados. Para ver cuánto, se factoriza B: B x más C es B por, x más C partido B. Así que la onda se corre en menos C partido B. Eso se llama ángulo de fase, o desfase. Con B igual a 2 y C igual a menos pi medios, el desfase es pi cuartos: se corre pi cuartos a la derecha.`],
+on(j,r,m){const c=r.querySelector('#curf');if(c)c.innerHTML=M('f(x) = '+FS[j]);animv(r,'p',PR[j],1.4,v=>{const e=r.querySelector('#sw');if(e)e.setAttribute('d',fd(g,x=>v[0]*Math.sin(v[1]*x+v[2]),-0.5,10.3,500))},m)}
+});}
+
+S({title:'a sen x + b cos x en una sola onda',
+html:`
+${Q(90,175,'a sen x + b cos x   →   R sen(x + φ)',0,'s box')}
+${LI(90,262,1,'<b><i>R</i> = √(<i>a</i>² + <i>b</i>²)</b>: será la amplitud.',1)}
+${LI(90,335,2,'Busca φ con <b>cos φ = <i>a</i>/<i>R</i></b> y <b>sen φ = <i>b</i>/<i>R</i></b>. Mira los signos de <i>a</i> y <i>b</i> para el cuadrante.',2)}
+${LI(90,435,3,'<b><i>a</i> sen <i>x</i> + <i>b</i> cos <i>x</i> = <i>R</i> sen(<i>x</i> + φ)</b>',3)}
+${Q(90,520,'R sen(x + φ) = R cos φ · sen x + R sen φ · cos x',4,'s')}
+${N(90,585,1100,'Como <i>R</i> cos φ = <i>a</i> y <i>R</i> sen φ = <i>b</i>, vuelves a <i>a</i> sen <i>x</i> + <i>b</i> cos <i>x</i>. Con 3<i>x</i> o 2<i>x</i> en vez de <i>x</i>, funciona igual.',4)}`,
+beats:[
+`Ahora la técnica más importante de este capítulo. Muchas veces te dan una suma, a por seno de x más b por coseno de x, y te piden escribirla como una sola sinusoidal. Se hace en tres pasos.`,
+`Paso uno: calcula R, la raíz de, a al cuadrado más b al cuadrado. Esa va a ser la amplitud.`,
+`Paso dos: busca un ángulo fi tal que coseno de fi sea a partido R, y seno de fi sea b partido R. Mira los signos de a y de b para saber en qué cuadrante está fi.`,
+`Paso tres: el resultado es R por seno de, x más fi.`,
+`¿Por qué funciona? Por la fórmula del seno de una suma: seno de x más fi es seno de x por coseno de fi, más coseno de x por seno de fi. Si multiplicas por R, R coseno de fi es a, y R seno de fi es b. Vuelves exactamente a, a seno de x más b coseno de x. Y si en vez de x hay 3 x, o 2 x, funciona igual.`]
+});
+
+{const g=G(760,470,95,50);
+S({title:'Ejemplo: Guía 12, problema 4a',
+html:`${svg(`
+${axes(g,-0.4,4.4,-2.5,2.5,0,{xt:[[PI/3,'π/3'],[2*PI/3,'2π/3'],[PI,'π']],yt:[[2,'2'],[-2,'−2']]})}
+${cv(g,x=>Math.sin(3*x),-0.4,4.3,'f2',0,{dash:1,w:2.5,n:400})}${cv(g,x=>Math.sqrt(3)*Math.cos(3*x),-0.4,4.3,'f3',0,{dash:1,w:2.5,n:400})}
+${cv(g,x=>2*Math.sin(3*x+PI/3),-0.4,4.3,'f1',3,{n:400,w:4.5})}`)}
+${Q(90,180,`sen(3x) + ${rt('3')} cos(3x)`,0,'s')}
+${Q(90,245,`a = 1,     b = ${rt('3')}`,0,'s')}
+${Q(90,310,`R = ${rt('1 + 3')} = 2`,1,'s')}
+${Q(90,378,`cos φ = ${fr('1','2')},   sen φ = ${fr(rt('3'),'2')}   ⇒   φ = ${fr('π','3')}`,2,'s')}
+${Q(90,485,`2 sen(3x + ${fr('π','3')})`,3,'l box')}
+${N(90,615,640,'Amplitud 2 · período 2π/3 · fase −π/9',3)}`,
+beats:[
+`Ejemplo de la guía 12: seno de 3 x más raíz de 3 por coseno de 3 x. Aquí a es 1, b es raíz de 3, y el ángulo es 3 x. En el gráfico, las dos ondas punteadas son los dos sumandos por separado.`,
+`R es la raíz de, 1 al cuadrado más raíz de 3 al cuadrado: raíz de 1 más 3, raíz de 4, o sea 2.`,
+`Buscamos fi: coseno de fi es un medio y seno de fi es raíz de 3 partido 2. Los dos son positivos, así que es del primer cuadrante. El ángulo es pi tercios, 60 grados.`,
+`Resultado: 2 por seno de, 3 x más pi tercios. Su suma, en morado, es una sola onda. Amplitud 2. Período: 2 pi partido 3. Desfase: menos C partido B, menos pi tercios partido 3, o sea menos pi novenos: se corre pi novenos a la izquierda.`]
+});}
+
+S({title:'Identidades que vas a necesitar',
+html:`
+${Q(90,180,'sen^2 x + cos^2 x = 1',0,'s box')}
+${Q(90,265,'sen(2x) = 2 sen x cos x',1,'s')}
+${Q(90,328,'cos(2x) = cos^2 x − sen^2 x = 1 − 2 sen^2 x = 2 cos^2 x − 1',1,'s')}
+${Q(90,410,'sen(a ± b) = sen a cos b ± cos a sen b',2,'s')}
+${Q(90,473,'cos(a ± b) = cos a cos b ∓ sen a sen b',2,'s')}
+${P(700,479,'En el coseno el signo se da vuelta','f6',2,'nc')}
+${Q(90,555,`tan(a − b) = ${fr('tan a − tan b','1 + tan a · tan b')}`,3,'s')}`,
+beats:[
+`Para llegar a la forma a seno más b coseno, a veces hay que usar identidades. Estas son las que tienes que saber de memoria. La fundamental: seno al cuadrado más coseno al cuadrado es 1.`,
+`Ángulo doble: seno de 2 x es 2 seno de x coseno de x. Y coseno de 2 x es coseno al cuadrado menos seno al cuadrado, que también se puede escribir como 1 menos 2 seno al cuadrado, o como 2 coseno al cuadrado menos 1.`,
+`Suma y resta de ángulos: seno de, a más o menos b, es seno a coseno b, más o menos coseno a seno b. Coseno de, a más o menos b, es coseno a coseno b, menos o más seno a seno b. Ojo: en el coseno el signo se da vuelta.`,
+`Y la tangente de una resta: tangente de a menos tangente de b, sobre 1 más tangente de a por tangente de b. La vamos a usar en el próximo capítulo.`]
+});
+
+S({title:'Taller 7, ejercicio 5',
+html:`
+${Q(90,175,`f(x) = ${fr('1','2')} sen x (cos x − ${fr(rt('3'),'2')} sen x) + ${fr(rt('3'),'4')} cos^2 x`,0,'s')}
+${Q(90,272,`= ${fr('1','2')} sen x cos x − ${fr(rt('3'),'4')} sen^2 x + ${fr(rt('3'),'4')} cos^2 x`,1,'s')}
+${Q(90,368,`= ${fr('1','4')} sen(2x) + ${fr(rt('3'),'4')} (cos^2 x − sen^2 x) = ${fr('1','4')} sen(2x) + ${fr(rt('3'),'4')} cos(2x)`,2,'xs')}
+${Q(90,455,`= ${fr('1','2')} (${fr('1','2')} sen(2x) + ${fr(rt('3'),'2')} cos(2x))`,3,'s')}
+${Q(90,548,`= ${fr('1','2')} sen(2x + ${fr('π','3')})`,4,'s box')}
+${N(600,540,600,'Amplitud ½ · período π · fase −π/6',4)}
+${N(600,595,600,'Ceros: 2<i>x</i> + π/3 = <i>k</i>π ⇒ <i>x</i> = −π/6 + <i>k</i>π/2',5)}`,
+beats:[
+`Taller 7, ejercicio 5. f de x es un medio seno de x, por, coseno de x menos raíz de 3 partido 2 por seno de x, más raíz de 3 cuartos por coseno al cuadrado de x. Hay que mostrar que es sinusoidal. Se ve feo, pero vamos de a poco.`,
+`Paso uno: distribuimos el un medio seno de x. Queda un medio seno x coseno x, menos raíz de 3 cuartos seno al cuadrado de x, más raíz de 3 cuartos coseno al cuadrado de x.`,
+`Paso dos: reconocemos ángulos dobles. Un medio seno x coseno x es un cuarto de, 2 seno x coseno x, o sea un cuarto de seno de 2 x. Y raíz de 3 cuartos por, coseno al cuadrado menos seno al cuadrado, es raíz de 3 cuartos por coseno de 2 x.`,
+`Paso tres: ahora tenemos la forma a seno más b coseno, con a igual a un cuarto y b igual a raíz de 3 cuartos. R es la raíz de un dieciseisavo más tres dieciseisavos, raíz de un cuarto: un medio. Sacamos un medio de factor: queda un medio por, un medio seno de 2 x más raíz de 3 partido 2 coseno de 2 x.`,
+`Un medio es el coseno de pi tercios, y raíz de 3 partido 2 es el seno de pi tercios. Entonces es un medio por seno de, 2 x más pi tercios. Amplitud un medio, período pi, desfase menos pi sextos. Un aviso: la pauta oficial tiene una errata en un paso intermedio, pero el resultado final es este.`,
+`Y para graficar, los ceros: el seno de algo es cero cuando ese algo es k pi. 2 x más pi tercios igual a k pi, así que x es menos pi sextos más k pi medios. Desde menos pi sextos, la onda sube.`]
+});
+
+/* ===================== TRIG INVERSAS Y ECUACIONES ===================== */
+CH('Trigonométricas inversas y ecuaciones','Clase 18','Capítulo ocho: las inversas trigonométricas, y cómo resolver ecuaciones trigonométricas. El último tema del certamen.');
+
+{const g=G(345,430,66,66);
+S({title:'Restringir para poder invertir',
+html:`${svg(`
+${axes(g,-4.4,4.4,-2.3,2.3,0,{xt:[[-PI/2,'−π/2'],[PI/2,'π/2']],yt:[[1,'1'],[-1,'−1']]})}
+${cv(g,Math.sin,-4.3,4.3,'line',0,{dash:1,w:2.5,n:400})}
+${cv(g,Math.sin,-PI/2,PI/2,'f1',1,{w:5})}
+${dl(g.X(-2.1),g.Y(-2.1),g.X(2.2),g.Y(2.2),1)}
+${cv(g,Math.asin,-1,1,'f2',1,{w:5})}${fdot(g.X(1),g.Y(PI/2),'f2',1)}${fdot(g.X(-1),g.Y(-PI/2),'f2',1)}
+${tc(g.X(1)+14,g.Y(PI/2)-4,'Arcsen','f2',1,'start',24)}${tc(g.X(PI/2)+8,g.Y(1)+28,'sen','f1',1,'start',24)}`)}
+${TB(700,180,[170,140,200],[
+ {h:1,c:['Función','Dominio','Recorrido'],b:1},
+ {c:['Arcsen','[−1, 1]','[−π/2, π/2]'],b:1},
+ {c:['Arccos','[−1, 1]','[0, π]'],b:2},
+ {c:['Arctan','ℝ','] −π/2, π/2 ['],b:2}])}
+${N(700,430,500,'El <b>recorrido</b> es lo que importa: cada inversa responde con un ángulo de ese rango.',3)}`,
+beats:[
+`Seno, coseno y tangente se repiten, así que no son inyectivas: una recta horizontal las corta infinitas veces. Para tener inversa, igual que con la parábola, se restringe el dominio a un pedazo donde sí sean inyectivas.`,
+`Para el seno se elige el pedazo de menos pi medios a pi medios, en morado. Ahí pasa por todos los valores de menos 1 a 1, una sola vez. Su inversa se llama arcoseno: va de menos 1, 1, en menos pi medios, pi medios. Es el reflejo en la recta y igual a x, en celeste.`,
+`Para el coseno se elige de cero a pi, así que el arcocoseno va de menos 1, 1, en cero, pi. Y para la tangente, de menos pi medios a pi medios, abierto, así que el arcotangente va de todo R en menos pi medios, pi medios, abierto.`,
+`Lo importante es el recorrido de cada inversa. El arcoseno siempre da un ángulo entre menos pi medios y pi medios. El arcocoseno, entre cero y pi. El arcotangente, entre menos pi medios y pi medios, sin incluirlos.`]
+});}
+
+S({title:'Evaluar inversas',
+html:`
+${Q(90,180,'Arccos(1) = 0',0,'s')}${Q(380,180,'Arctan(1) = π/4',0,'s')}
+${Q(90,245,'Arcsen(½) = π/6',1,'s')}${Q(380,245,`Arctan(−${rt('3')}) = −π/3`,1,'s')}
+${Q(90,310,`Arcsec(2/${rt('3')}) = Arccos(${rt('3')}/2) = π/6`,2,'s')}
+${TB(740,180,[110,110,110,110],[
+ {h:1,c:['ángulo','sen','cos','tan'],b:0},
+ {c:['0','0','1','0'],b:0},
+ {c:['π/6','1/2','√3/2','√3/3'],b:0},
+ {c:['π/4','√2/2','√2/2','1'],b:0},
+ {c:['π/3','√3/2','1/2','√3'],b:0},
+ {c:['π/2','1','0','—'],b:0}])}
+${Q(90,525,'y = Arcsen(2x − 1):     −1 ≤ 2x − 1 ≤ 1   ⇔   0 ≤ x ≤ 1',3,'s')}
+${Q(90,595,'Arcsen(2x − 1) = π/6   ⇒   2x − 1 = sen(π/6) = ½   ⇒   x = ¾',4,'s')}`,
+beats:[
+`Evaluar una inversa es responder una pregunta: ¿qué ángulo, dentro del recorrido, tiene este seno, este coseno o esta tangente? La tabla de la derecha tiene los valores que debes saber. Ejercicios de la clase 18. Arcocoseno de 1: ¿qué ángulo entre cero y pi tiene coseno 1? Cero. Arcotangente de 1: ¿qué ángulo entre menos pi medios y pi medios tiene tangente 1? Pi cuartos.`,
+`Arcoseno de un medio: pi sextos, 30 grados. Arcotangente de menos raíz de 3: la tangente de pi tercios es raíz de 3, y como la tangente es impar, la de menos pi tercios es menos raíz de 3. Y menos pi tercios está en el recorrido. Respuesta: menos pi tercios.`,
+`Arcosecante de 2 partido raíz de 3: la secante es uno partido coseno, así que buscamos el ángulo cuyo coseno es raíz de 3 partido 2: pi sextos.`,
+`Y uno con dominio: y igual a arcoseno de, 2 x menos 1. El arcoseno solo acepta números entre menos 1 y 1. Entonces menos 1, menor o igual a 2 x menos 1, menor o igual a 1. Sumamos 1: cero, menor o igual a 2 x, menor o igual a 2. Dividimos por 2: x entre cero y uno.`,
+`Y si y es pi sextos: arcoseno de 2 x menos 1 igual a pi sextos. Aplicamos seno a ambos lados: 2 x menos 1 igual a seno de pi sextos, un medio. 2 x igual a 3 medios: x igual a 3 cuartos. Y está en el dominio.`]
+});
+
+S({title:'Demostrar con inversas',
+html:`
+${Q(90,175,'Arctan(4/3) − Arctan(1) = Arctan(1/7)',0,'s box')}
+${Q(90,262,'a = Arctan(4/3)  ⇒  tan a = 4/3,     a ∈ ]0, π/2[',1,'s')}
+${Q(90,322,'b = Arctan(1) = π/4  ⇒  tan b = 1',1,'s')}
+${Q(90,405,`tan(a − b) = ${fr('tan a − tan b','1 + tan a · tan b')} = ${fr('4/3 − 1','1 + 4/3')} = ${fr('1/3','7/3')} = ${fr('1','7')}`,2,'s')}
+${Q(90,512,'a − b ∈ ]−π/4, π/4[ ⊂ ]−π/2, π/2[',3,'s')}
+${P(660,518,'Sin este paso la demostración queda incompleta','f6',3,'nc')}
+${Q(90,585,'⇒   a − b = Arctan(1/7)   ✓',3,'s box')}`,
+beats:[
+`Otro ejercicio de la clase 18: demostrar que arcotangente de 4 tercios menos arcotangente de 1 es igual a arcotangente de un séptimo. La técnica: ponerle nombre a cada arco y aplicarle tangente.`,
+`Llamamos a al arcotangente de 4 tercios: entonces tangente de a es 4 tercios, y como 4 tercios es positivo, a está entre cero y pi medios. Y b es arcotangente de 1, que es pi cuartos, con tangente de b igual a 1.`,
+`Calculamos tangente de a menos b con la fórmula de la resta: tangente de a menos tangente de b, sobre 1 más el producto. Arriba: 4 tercios menos 1, un tercio. Abajo: 1 más 4 tercios, siete tercios. Un tercio partido siete tercios: un séptimo.`,
+`Ojo, falta un paso que muchos olvidan. Que la tangente de a menos b sea un séptimo no basta, porque muchos ángulos tienen tangente un séptimo. Hay que verificar que a menos b esté en el recorrido del arcotangente, entre menos pi medios y pi medios. Como a está entre cero y pi medios, a menos pi cuartos está entre menos pi cuartos y pi cuartos. Está adentro. Recién ahí concluimos que a menos b es arcotangente de un séptimo.`]
+});
+
+{const C=[280,440],R=150,al=0.6,Pt=t=>[C[0]+R*Math.cos(t),C[1]-R*Math.sin(t)];const A=Pt(al),B=Pt(PI-al),Cm=Pt(-al),D=Pt(PI+al);
+const rad=(p,col)=>`<line x1="${C[0]}" y1="${C[1]}" x2="${p[0]}" y2="${p[1]}" style="stroke:var(--${col});stroke-width:3.5"/>`;
+S({title:'Soluciones generales',
+html:`${svg(`
+${cir(C[0],C[1],R,0,'ln2')}<g data-b="0"><line x1="${C[0]-R-25}" y1="${C[1]}" x2="${C[0]+R+25}" y2="${C[1]}" class="ln2"/><line x1="${C[0]}" y1="${C[1]-R-25}" x2="${C[0]}" y2="${C[1]+R+25}" class="ln2"/></g>
+<g${ab({b:0,x:1})}>${rad(A,'f1')}${rad(B,'f1')}${dl(B[0],B[1],A[0],A[1],null,'f1')}${fdot(A[0],A[1],'f1')}${fdot(B[0],B[1],'f1')}${tc(A[0]+18,A[1]-12,'α','f1',null,'start')}${tc(B[0]-18,B[1]-12,'π − α','f1',null,'end')}</g>
+<g${ab({b:1,x:2})}>${rad(A,'f2')}${rad(Cm,'f2')}${dl(A[0],A[1],Cm[0],Cm[1],null,'f2')}${fdot(A[0],A[1],'f2')}${fdot(Cm[0],Cm[1],'f2')}${tc(A[0]+18,A[1]-12,'α','f2',null,'start')}${tc(Cm[0]+18,Cm[1]+14,'−α','f2',null,'start')}</g>
+<g data-b="2"><line x1="${D[0]}" y1="${D[1]}" x2="${A[0]}" y2="${A[1]}" style="stroke:var(--f3);stroke-width:3.5"/>${fdot(A[0],A[1],'f3')}${fdot(D[0],D[1],'f3')}${tc(A[0]+18,A[1]-12,'α','f3',null,'start')}${tc(D[0]-18,D[1]+14,'π + α','f3',null,'end')}</g>`)}
+${Q(520,182,'sen x = sen α  ⇔  x = α + 2kπ  {{o}}  x = π − α + 2kπ',0,'xs')}
+${Q(520,250,'cos x = cos α  ⇔  x = ±α + 2kπ',1,'s')}
+${Q(520,318,'tan x = tan α  ⇔  x = α + kπ',2,'s')}
+${N(520,380,600,'<i>k</i> ∈ ℤ: cualquier entero (vueltas completas).',2)}
+${Q(520,455,'sen x = ½  ⇒  x = π/6 + 2kπ  {{o}}  x = 5π/6 + 2kπ',3,'xs')}
+${Q(520,510,`cos x = −${rt('3')}/2  ⇒  x = ±5π/6 + 2kπ`,3,'xs')}
+${Q(520,565,'tan x = 1  ⇒  x = π/4 + kπ',3,'xs')}`,
+beats:[
+`Ahora, ecuaciones. La clave está en el círculo. Si el seno de x es igual al seno de alfa, hay dos ángulos en cada vuelta con esa misma altura: alfa, y pi menos alfa, que es su simétrico respecto al eje vertical. Y a cada uno le puedes sumar vueltas completas, 2 k pi. Entonces x es alfa más 2 k pi, o pi menos alfa más 2 k pi, con k entero.`,
+`Si el coseno de x es igual al coseno de alfa, los dos ángulos con la misma coordenada horizontal son alfa y menos alfa, simétricos respecto al eje horizontal. x es más o menos alfa, más 2 k pi.`,
+`Y si la tangente de x es igual a la tangente de alfa, los ángulos son alfa y alfa más pi, el opuesto. Como la tangente tiene período pi, basta con x igual a alfa más k pi.`,
+`Ejemplos de la clase. Seno de x igual a un medio: alfa es pi sextos, así que x es pi sextos más 2 k pi, o 5 pi sextos más 2 k pi. Coseno de x igual a menos raíz de 3 partido 2: alfa es 5 pi sextos, y x es más o menos 5 pi sextos, más 2 k pi. Tangente de x igual a 1: x es pi cuartos más k pi.`]
+});}
+
+S({title:'Método para ecuaciones trigonométricas',
+html:`
+${LI(90,180,1,'<b>Una sola función:</b> usa identidades para dejar todo en sen, en cos o en tan.',0)}
+${LI(90,255,2,'<b>¿Cuadrática?</b> <i>u</i> = sen <i>x</i>; resuelve y descarta <i>u</i> fuera de [−1, 1].',1)}
+${LI(90,330,3,'<b>¿<i>a</i> sen <i>x</i> + <i>b</i> cos <i>x</i> = <i>c</i>?</b> Llévalo a <i>R</i> sen(<i>x</i> + φ) = <i>c</i>.',2)}
+${LI(90,405,4,'<b>Solución general</b> con <i>k</i> ∈ ℤ.',3)}
+${LI(90,480,5,'<b>¿Intervalo?</b> Prueba <i>k</i> = 0, ±1, ±2… y quédate con las que caen adentro.',4)}
+${LI(90,555,6,'<b>¿Dividiste?</b> Si dividiste por cos <i>x</i>, revisa aparte cuando cos <i>x</i> = 0.',5)}`,
+beats:[
+`Ahora el método general para ecuaciones trigonométricas. Paso uno: si hay varias funciones distintas, usa identidades para dejar una sola: todo en seno, todo en coseno, o todo en tangente.`,
+`Paso dos: si queda una cuadrática, por ejemplo con seno al cuadrado y seno, haz el cambio u igual a seno de x, resuelve la cuadrática, y descarta los valores de u que estén fuera de menos 1, 1, porque el seno nunca sale de ese rango.`,
+`Paso tres: si queda a seno de x más b coseno de x igual a c, llévalo a R seno de, x más fi, igual a c, con la técnica del capítulo anterior.`,
+`Paso cuatro: escribe la solución general, con k entero, usando las fórmulas que acabamos de ver.`,
+`Paso cinco: si te piden las soluciones en un intervalo, por ejemplo entre cero y 2 pi, reemplaza k por cero, 1, 2, y también por menos 1 si hace falta, y quédate solo con los resultados que caen adentro.`,
+`Paso seis: si en algún momento dividiste por algo, por ejemplo por coseno de x, revisa aparte el caso en que eso vale cero. Si no, puedes perder soluciones.`]
+});
+
+{const C=[1050,330],R=110,Pt=t=>[C[0]+R*Math.cos(t),C[1]-R*Math.sin(t)];const a=Pt(PI/2),b=Pt(7*PI/6),c=Pt(11*PI/6);
+S({title:'Ejemplo: Guía 12, problema 5b',
+html:`${svg(`
+<g data-b="0">${cir(C[0],C[1],R,null,'ln2')}<line x1="${C[0]-R-20}" y1="${C[1]}" x2="${C[0]+R+20}" y2="${C[1]}" class="ln2"/><line x1="${C[0]}" y1="${C[1]-R-20}" x2="${C[0]}" y2="${C[1]+R+20}" class="ln2"/></g>
+<g data-b="2">${fdot(a[0],a[1],'f2',null,8)}${tc(a[0]+14,a[1]-16,'π/2','f2',null,'start',22)}</g>
+<g data-b="3">${dl(C[0]-R-15,b[1],C[0]+R+15,b[1],null,'f1')}${fdot(b[0],b[1],'f1',null,8)}${fdot(c[0],c[1],'f1',null,8)}
+${tc(b[0]-12,b[1]+24,'7π/6','f1',null,'end',22)}${tc(c[0]+12,c[1]+24,'11π/6','f1',null,'start',22)}</g>`)}
+${Q(90,180,'2 sen^2 x − sen x − 1 = 0',0,'s box')}
+${N(560,188,330,'Cambio: <i>u</i> = sen <i>x</i>',0)}
+${Q(90,265,'2u^2 − u − 1 = 0   ⇒   (2u + 1)(u − 1) = 0',1,'s')}
+${Q(90,330,'u = 1  ✓       u = −½  ✓',1,'s')}
+${N(470,336,420,'(los dos en [−1, 1])',1)}
+${Q(90,410,'sen x = 1   ⇒   x = π/2 + 2kπ',2,'s')}
+${Q(90,485,'sen x = −½  ⇒  α = −π/6  ⇒  x = −π/6 + 2kπ  {{o}}  x = 7π/6 + 2kπ',3,'s')}
+${Q(90,580,'{{En}} [0, 2π]:     π/2,     7π/6,     11π/6',4,'s box')}`,
+beats:[
+`Ejemplo de la guía 12: 2 seno al cuadrado de x, menos seno de x, menos 1, igual a cero. Hay una sola función, seno, pero al cuadrado. Es una cuadrática disfrazada: llamamos u a seno de x.`,
+`Queda 2 u al cuadrado menos u menos 1 igual a cero. Factorizamos: 2 u más 1, por u menos 1. Si lo multiplicas de vuelta: 2 u al cuadrado menos 2 u más u menos 1, que da lo mismo. Entonces u es 1, o u es menos un medio. Los dos están entre menos 1 y 1, así que no se descarta ninguno.`,
+`Caso seno de x igual a 1: solo pasa arriba del todo, en pi medios. x igual a pi medios más 2 k pi.`,
+`Caso seno de x igual a menos un medio: alfa es arcoseno de menos un medio, o sea menos pi sextos. Con la fórmula: x es menos pi sextos más 2 k pi, o pi menos, menos pi sextos, que es 7 pi sextos, más 2 k pi.`,
+`Si te pidieran las soluciones entre cero y 2 pi: pi medios, 7 pi sextos, y menos pi sextos más 2 pi, que es 11 pi sextos. Tres soluciones, las tres que ves en el círculo.`]
+});}
+
+S({title:'Ejemplo: Guía 12, problema 5e',
+html:`
+${Q(90,178,`${rt('3')} sen x + cos x = 1`,0,'s box')}
+${Q(90,262,`a = ${rt('3')},  b = 1,  R = 2,  cos φ = ${rt('3')}/2,  sen φ = ½   ⇒   φ = π/6`,1,'s')}
+${Q(90,330,'2 sen(x + π/6) = 1',1,'s')}
+${Q(420,330,'⇒   sen(x + π/6) = ½',2,'s')}
+${Q(90,415,'x + π/6 = π/6 + 2kπ   ⇒   x = 2kπ',3,'s')}
+${Q(90,480,'x + π/6 = 5π/6 + 2kπ   ⇒   x = 2π/3 + 2kπ',3,'s box')}
+${P(90,576,'Comprueba','f4',4)}
+${Q(250,570,`x = 0:  0 + 1 = 1 ✓          x = 2π/3:  ${rt('3')} · ${rt('3')}/2 − ½ = 1 ✓`,4,'s')}`,
+beats:[
+`Último ejemplo, también de la guía 12: raíz de 3 seno de x, más coseno de x, igual a 1. Hay seno y coseno sumados, así que usamos la técnica del capítulo anterior: llevarlo a una sola sinusoidal.`,
+`a es raíz de 3 y b es 1. R es la raíz de 3 más 1, raíz de 4: 2. Coseno de fi es raíz de 3 partido 2, seno de fi es un medio: fi es pi sextos. La ecuación queda 2 seno de, x más pi sextos, igual a 1.`,
+`Dividimos por 2: seno de, x más pi sextos, igual a un medio. Ahora el ángulo es x más pi sextos, y lo tratamos como un bloque. El seno vale un medio en pi sextos y en 5 pi sextos.`,
+`Primer caso: x más pi sextos igual a pi sextos más 2 k pi. Restando pi sextos: x igual a 2 k pi. Segundo caso: x más pi sextos igual a 5 pi sextos más 2 k pi: x igual a 4 pi sextos, o sea 2 pi tercios, más 2 k pi.`,
+`Comprobemos, que es fácil. En x igual a cero: raíz de 3 por cero, más 1, igual a 1. Bien. En x igual a 2 pi tercios: raíz de 3 por raíz de 3 partido 2, que es 3 medios, más menos un medio: 1. Bien. Comprobar al final te salva puntos.`]
+});
+
+/* ===================== CIERRE ===================== */
+CH('Resumen final','Todo el certamen','Capítulo final: lo que tienes que llevar en la cabeza, y los errores que más puntos cuestan.');
+
+S({title:'Lo esencial, en una pantalla',
+html:`
+${CARD(90,180,355,185,'Paridad','f(−x) = f(x) → {{par}}<br>f(−x) = −f(x) → {{impar}}<br>{{si no: un contraejemplo}}',0)}
+${CARD(462,180,355,185,'Composición','(f ∘ g)(x) = f(g(x))<br>Dom = { x ∈ Dom g : g(x) ∈ Dom f }',{b:0,d:.15})}
+${CARD(834,180,355,185,'Inversa','{{biyectiva →}} y = f(x)<br>{{despeja}} x {{y cambia}} y ↔ x<br>Dom f^{−1} = Rec f',1)}
+${CARD(90,390,355,185,'Exp y log','y = a^{x} ⇔ log_a y = x<br>{{argumento}} > 0<br>{{base}} < 1 → {{se invierte}}',{b:1,d:.15})}
+${CARD(462,390,355,185,'Modelos','T(t) = T_m + (T_0 − T_m) e^{−<i>kt</i>}<br>{{deja la exponencial sola y aplica}} ln',2)}
+${CARD(834,390,355,185,'Trigonometría','a sen x + b cos x = R sen(x + φ)<br>sen x = sen α → α, π − α {{(+ 2kπ)}}',{b:2,d:.15})}`,
+beats:[
+`Para cerrar, lo esencial. Paridad: calcula f de menos x y compara. Composición: el dominio son los x que entran a g y cuya imagen entra a f.`,
+`Inversa: verifica que sea biyectiva, escribe y igual a f de x, despeja x y cambia el nombre. Exponencial y logaritmo: y igual a a a la x si y solo si logaritmo en base a de y igual a x; el argumento del logaritmo siempre mayor que cero; y con base menor que 1, la desigualdad se invierte.`,
+`Modelos: deja la exponencial sola y aplica logaritmo. Trigonometría: a seno más b coseno es R seno de, x más fi; y seno de x igual a seno de alfa da alfa y pi menos alfa, más vueltas completas.`]
+});
+
+S({title:'Errores que cuestan puntos',
+html:`
+${LI(90,175,'✕','Base <b>entre 0 y 1</b> en exp o log: la desigualdad <b>se invierte</b>.',0)}
+${LI(90,245,'✕','Logaritmos: <b>dominio primero</b>, y al final revisa cada solución.',1)}
+${LI(90,315,'✕','<i>u</i> = <i>a<sup>x</sup></i>: <i>u</i> negativo se descarta. <i>u</i> = sen <i>x</i>: fuera de [−1, 1] se descarta.',2)}
+${LI(90,385,'✕','Dominio de <i>f</i> ∘ <i>g</i>: sale de la <b>definición</b>, no de la fórmula simplificada.',3)}
+${LI(90,455,'✕','Inversa con raíz: el <b>signo</b> lo decide el dominio que elegiste.',4)}
+${LI(90,525,'✕','Trigonométricas: no olvides <b>+ 2<i>k</i>π</b> (o + <i>k</i>π) ni revisar el intervalo.',5)}
+${LI(90,595,'✕','Por tramos: primero mira <b>en qué tramo cae</b> el número.',6)}`,
+beats:[
+`Ahora, los errores que más puntos cuestan. Uno: en inecuaciones con exponencial o logaritmo de base entre cero y uno, la desigualdad se invierte. Es el error más común.`,
+`Dos: con logaritmos, el dominio va primero, y al final se revisa que cada solución esté en el dominio.`,
+`Tres: en un cambio de variable, si u es a a la x, los valores negativos de u se descartan. Si u es seno de x, se descartan los que están fuera de menos 1, 1.`,
+`Cuatro: el dominio de una composición se saca de la definición, no de la fórmula ya simplificada.`,
+`Cinco: al despejar una inversa con raíz, el signo de la raíz lo decide el dominio que elegiste.`,
+`Seis: en una ecuación trigonométrica no olvides el más 2 k pi, o más k pi en la tangente. Y si te piden un intervalo, revisa todos los k que caen adentro.`,
+`Y siete: con funciones por tramos, antes de calcular, mira en qué tramo cae el número.`]
+});
+
+S({noHdr:true,title:'Cierre',
+html:`
+<div class="hk" style="left:90px;top:230px" data-b="0">MAT070 · Certamen 2</div>
+<div class="hero" style="left:84px;top:270px;font-size:110px" data-b="0" data-d=".15">Listo.</div>
+${N(90,420,780,'Vuelve a los capítulos que te costaron, pausa antes de cada solución e intenta resolver cada ejercicio solo. Practica con los talleres 6 y 7 y el control 4. Mucho éxito el viernes.',0)}`,
+beats:[
+`Eso es todo. Si llegaste hasta aquí, ya viste toda la materia del certamen 2. Vuelve a los capítulos que te costaron, pausa antes de cada solución, e intenta resolver cada ejercicio tú solo antes de mirar. Practica con los talleres 6 y 7 y con el control 4. Mucho éxito el viernes.`]
+});
+
+</script>
+<script>
+(function(){
+const $=s=>document.querySelector(s);
+const stage=$('#stage'),frame=$('#frame'),player=$('#player'),bar=$('#bar'),fill=bar.querySelector('.fill'),knob=bar.querySelector('.knob'),tip=$('#tip');
+const big=$('#big'),bPlay=$('#bPlay'),icPlay=$('#icPlay'),bVoice=$('#bVoice'),bSpeed=$('#bSpeed'),bFs=$('#bFs'),ctl=$('#ctl'),cap=$('#cap');
+const KEY='mat070-c2-pos-v1';
+let BE=[],TOTAL=0,g=0,t=0,playing=false,speed=1,voice=false,vDone=true,cur=null,curRoot=null,started=false,dragging=false,vTimer=null,sayTok=null,lastSave=0;
+const SPEEDS=[.75,1,1.25,1.5,2];
+
+/* timeline */
+SC.forEach(s=>{s.start=TOTAL;s.beats.forEach((txt,j)=>{const w=txt.split(/\s+/).length;const d=Math.max(4.5,w*.37+1.6);BE.push({s:s.i,j,txt,d,st:TOTAL});TOTAL+=d});s.end=TOTAL});
+CHS.forEach(c=>c.start=c.scenes[0].start);
+const fmt=s=>{s=Math.max(0,Math.floor(s));const h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=String(s%60).padStart(2,'0');return h?`${h}:${String(m).padStart(2,'0')}:${x}`:`${m}:${x}`};
+$('#dur').textContent=`${CHS.length-1} capítulos · ${BE.length} pasos · ${fmt(TOTAL)}`;
+CHS.forEach(c=>{if(c.start>0){const k=document.createElement('div');k.className='tick';k.style.left=(c.start/TOTAL*100)+'%';bar.appendChild(k)}});
+const chBox=$('#chs');
+CHS.forEach(c=>{const b=document.createElement('button');b.innerHTML=`<span class="n">${String(c.i).padStart(2,'0')}<br>${fmt(c.start)}</span><span><span class="t">${c.title}</span><span class="s">${c.sub}</span></span>`;b.onclick=()=>{go(idxAt(c.start+.01),0);if(!started)play();player.scrollIntoView({behavior:'smooth',block:'start'})};c.btn=b;chBox.appendChild(b)});
+function idxAt(T){let lo=0,hi=BE.length-1;while(lo<hi){const m=(lo+hi+1)>>1;if(BE[m].st<=T)lo=m;else hi=m-1}return lo}
+
+/* scenes */
+function hdr(sc){return `<div class="hdr"><div class="tag">${sc.ch.sub} · ${sc.ch.title}</div><h2>${sc.title}</h2></div>`}
+function card(c){return `<div class="card"><div class="cnum" data-b="0">${String(c.i).padStart(2,'0')}</div><div class="csub" data-b="0" data-d=".15">${c.sub}</div><div class="cttl" data-b="0" data-d=".3"${c.title.length>20?' style="font-size:64px"':''}>${c.title}</div>${svg(ln(146,520,1140,520,{b:0,d:.4},'ln','stroke:var(--acc);stroke-width:2'))}</div>`}
+function mount(sc){
+  const old=curRoot;if(old){old.classList.add('out');setTimeout(()=>old.remove(),1100)}
+  const r=document.createElement('div');r.className='scene pre';
+  r.innerHTML=sc.card?card(sc.ch):((sc.noHdr?'':hdr(sc))+sc.html);
+  stage.appendChild(r);r._j=-1;cur=sc;curRoot=r;r.getBoundingClientRect();
+  requestAnimationFrame(()=>r.classList.remove('pre'));
+}
+function apply(j,mnt){
+  const r=curRoot,sc=cur;let k=0;
+  r.querySelectorAll('[data-b]').forEach(el=>{const b=+el.dataset.b,want=b<=j,has=el.classList.contains('vis');
+    if(want&&!has){const d=(mnt?.35:.05)+(+el.dataset.d||0)+(b===j?Math.min(k++,8)*.12:0);el.style.transitionDelay=d.toFixed(2)+'s';el._p=true}
+    else if(!want){el._p=false;if(has){el.style.transitionDelay='0s';el.classList.remove('vis')}}});
+  r._j=j;
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{r.querySelectorAll('[data-b]').forEach(el=>{if(el._p&&+el.dataset.b<=r._j){el.classList.add('vis');el._p=false}})}));
+  r.querySelectorAll('[data-x]').forEach(el=>el.classList.toggle('gone',j>=+el.dataset.x));
+  r.querySelectorAll('[data-hl]').forEach(el=>el.classList.toggle('hl',el.dataset.hl.split(',').map(Number).includes(j)));
+  if(sc.on){try{sc.on(j,r,mnt)}catch(e){console.error(e)}}
+}
+function go(i,tt=0,o={}){
+  i=Math.max(0,Math.min(BE.length-1,i));const b=BE[i],sc=SC[b.s];let m=false;
+  if(cur!==sc){mount(sc);m=true}
+  const same=!m&&i===g&&curRoot._j===b.j;
+  g=i;t=tt;if(!same)apply(b.j,m);
+  $('#capTag').textContent=sc.ch.title+(sc.card?'':' · '+sc.title);
+  $('#capTx').textContent=b.txt;
+  $('#chName').textContent=sc.ch.title;
+  CHS.forEach(c=>c.btn.classList.toggle('on',c===sc.ch));
+  if(playing&&voice&&o.speak!==false)say(b.txt);
+  ui();
+}
+
+/* voice */
+let esVoice=null;const hasTTS='speechSynthesis' in window;
+function pickVoice(){if(!hasTTS)return;const vs=speechSynthesis.getVoices();esVoice=vs.find(v=>/^es[-_](CL|419|MX|US|AR|CO)/i.test(v.lang))||vs.find(v=>/^es[-_]ES/i.test(v.lang))||vs.find(v=>/^es/i.test(v.lang))||null}
+if(hasTTS){pickVoice();try{speechSynthesis.addEventListener('voiceschanged',pickVoice)}catch(e){}}else{bVoice.disabled=true;bVoice.title='Tu navegador no tiene síntesis de voz'}
+function say(txt){
+  if(!hasTTS){vDone=true;return}
+  try{speechSynthesis.cancel()}catch(e){}
+  vDone=false;const tok={};sayTok=tok;
+  const parts=(txt.match(/[^.!?]+[.!?]*/g)||[txt]).map(p=>p.trim()).filter(Boolean);
+  parts.forEach((p,k)=>{const u=new SpeechSynthesisUtterance(p);u.lang=esVoice?esVoice.lang:'es-ES';if(esVoice)u.voice=esVoice;u.rate=Math.min(2,speed*1.05);
+    if(k===parts.length-1)u.onend=()=>{if(sayTok===tok)vDone=true};u.onerror=()=>{if(sayTok===tok)vDone=true};
+    try{speechSynthesis.speak(u)}catch(e){vDone=true}});
+  clearTimeout(vTimer);vTimer=setTimeout(()=>{if(sayTok===tok)vDone=true},(BE[g].d/speed)*1600+3000);
+}
+function hush(){if(hasTTS){sayTok=null;try{speechSynthesis.cancel()}catch(e){}}vDone=true}
+
+/* transport */
+function play(){if(!started){started=true;big.hidden=true;$('#resume').hidden=true}
+  if(g===BE.length-1&&t>=BE[g].d-.05)go(0,0,{speak:false});
+  playing=true;if(voice)say(BE[g].txt);ui()}
+function pause(){playing=false;hush();ui()}
+function next(){go(g+1,0)}
+function prev(){if(t>2.5)go(g,0);else go(g-1,0)}
+function ui(){icPlay.setAttribute('d',playing?'M6 5h4v14H6zM14 5h4v14h-4z':'M7 4.5v15l12-7.5z');bPlay.setAttribute('aria-label',playing?'Pausar':'Reproducir')}
+bPlay.onclick=()=>playing?pause():play();big.onclick=play;
+$('#bNext').onclick=next;$('#bPrev').onclick=prev;
+bSpeed.onclick=()=>{speed=SPEEDS[(SPEEDS.indexOf(speed)+1)%SPEEDS.length];bSpeed.textContent=speed+'×';if(playing&&voice)say(BE[g].txt)};
+bVoice.onclick=()=>{voice=!voice;bVoice.setAttribute('aria-pressed',voice);bVoice.textContent='Voz: '+(voice?'sí':'no');if(voice){pickVoice();if(playing)say(BE[g].txt)}else hush()};
+bFs.onclick=()=>{if(document.fullscreenElement){document.exitFullscreen&&document.exitFullscreen().catch(()=>{})}else if(player.requestFullscreen){player.requestFullscreen().catch(()=>{})}};
+document.addEventListener('fullscreenchange',()=>setTimeout(fit,50));
+document.addEventListener('keydown',e=>{if(e.target.closest&&e.target.closest('input,textarea'))return;
+  if(e.code==='Space'||e.key==='k'){e.preventDefault();playing?pause():play()}
+  else if(e.key==='ArrowRight'){e.preventDefault();next()}
+  else if(e.key==='ArrowLeft'){e.preventDefault();prev()}
+  else if(e.key==='f'||e.key==='F'){bFs.click()}});
+
+/* seek bar */
+function TatX(x){const r=bar.getBoundingClientRect();return Math.max(0,Math.min(1,(x-r.left)/r.width))*TOTAL}
+function seekT(T){const i=idxAt(T);go(i,Math.min(T-BE[i].st,BE[i].d-.05),{speak:false})}
+bar.addEventListener('pointerdown',e=>{dragging=true;try{bar.setPointerCapture(e.pointerId)}catch(_){};seekT(TatX(e.clientX))});
+bar.addEventListener('pointermove',e=>{const T=TatX(e.clientX);if(dragging)seekT(T);let c=CHS[0];CHS.forEach(h=>{if(h.start<=T)c=h});tip.hidden=false;tip.textContent=fmt(T)+' · '+c.title;const r=bar.getBoundingClientRect();tip.style.left=Math.max(70,Math.min(r.width-70,e.clientX-r.left))+'px'});
+bar.addEventListener('pointerup',()=>{if(dragging){dragging=false;if(playing&&voice)say(BE[g].txt)}});
+bar.addEventListener('pointerleave',()=>{tip.hidden=true});
+
+/* resume */
+let saved=0;try{saved=+localStorage.getItem(KEY)||0}catch(e){}
+if(saved>20&&saved<TOTAL-10){$('#resume').hidden=false;$('#bRes').textContent='Continuar en '+fmt(saved);
+  $('#bRes').onclick=()=>{seekT(saved);play()};$('#bRes0').onclick=()=>{seekT(0);play()}}
+
+/* fit */
+function fit(){const fs=document.fullscreenElement===player;
+  if(fs){const W=window.innerWidth,H=window.innerHeight-ctl.offsetHeight-cap.offsetHeight;frame.style.width=Math.min(W,H*16/9)+'px'}else frame.style.width='';
+  stage.style.transform=`scale(${frame.clientWidth/1280})`}
+try{new ResizeObserver(fit).observe(frame)}catch(e){window.addEventListener('resize',fit)}
+fit();
+
+/* loop */
+let last=performance.now();
+function loop(now){const dt=Math.min(.1,(now-last)/1000);last=now;
+  if(playing&&!dragging){const b=BE[g];t+=dt*speed;
+    if(voice){if(vDone&&t>=1.2){if(g<BE.length-1)go(g+1,0);else pause()}else if(t>b.d)t=b.d-.001}
+    else if(t>=b.d){if(g<BE.length-1)go(g+1,t-b.d);else{t=b.d;pause()}}
+    if(now-lastSave>2500){lastSave=now;try{localStorage.setItem(KEY,String(BE[g].st+t))}catch(e){}}}
+  const b=BE[g],sc=SC[b.s];
+  if(sc.loop&&curRoot&&cur===sc){try{sc.loop(b.st-sc.start+t,curRoot,b.j,t)}catch(e){}}
+  const T=b.st+Math.min(t,b.d),p=T/TOTAL*100;fill.style.width=p+'%';knob.style.left=p+'%';
+  bar.setAttribute('aria-valuenow',Math.round(T));bar.setAttribute('aria-valuemax',Math.round(TOTAL));
+  $('#time').textContent=fmt(T)+' / '+fmt(TOTAL);
+  requestAnimationFrame(loop)}
+go(0,0,{speak:false});requestAnimationFrame(loop);
+
+})();
+</script>
+
+</body></html>
